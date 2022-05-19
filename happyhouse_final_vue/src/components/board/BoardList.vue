@@ -15,57 +15,63 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col v-if="articles.length">
-        <b-table-simple hover responsive>
-          <b-thead head-variant="dark">
-            <b-tr>
-              <b-th>글번호</b-th>
-              <b-th>제목</b-th>
-              <b-th>조회수</b-th>
-              <b-th>작성자</b-th>
-              <b-th>작성일</b-th>
-            </b-tr>
-          </b-thead>
-          <tbody>
-            <!-- 하위 component인 ListRow에 데이터 전달(props) -->
-            <board-list-item
-              v-for="article in articles"
-              :key="article.articleno"
-              v-bind="article"
-            />
-          </tbody>
-        </b-table-simple>
+      <b-col>
+        <b-table
+          striped
+          hover
+          :items="articles"
+          :fields="fields"
+          @row-clicked="viewArticle"
+          :per-page="perPage"
+          :current-page="currentPage"
+        >
+        </b-table>
       </b-col>
-      <!-- <b-col v-else class="text-center">도서 목록이 없습니다.</b-col> -->
     </b-row>
+    <div class="overflow-auto">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+        align="center"
+      ></b-pagination>
+    </div>
   </b-container>
 </template>
 
 <script>
-import { listArticle } from "@/api/board.js";
-import BoardListItem from "@/components/board/item/BoardListItem";
+import { listArticle, getTotalCount } from "@/api/board.js";
 
 export default {
   name: "BoardList",
-  components: {
-    BoardListItem,
-  },
   data() {
     return {
       articles: [],
+      perPage: 10,
+      currentPage: 1,
+      rows: 1,
+      fields: [
+        { key: "articleno", label: "글번호", tdClass: "tdClass" },
+        { key: "subject", label: "제목", tdClass: "tdSubject" },
+        { key: "userid", label: "작성자", tdClass: "tdClass" },
+        { key: "regtime", label: "작성일", tdClass: "tdClass" },
+        { key: "hit", label: "조회수", tdClass: "tdClass" },
+      ],
     };
   },
   created() {
-    let param = {
-      pg: 1,
-      spp: 20,
-      key: null,
-      word: null,
-    };
     listArticle(
-      param,
       (response) => {
         this.articles = response.data;
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+    getTotalCount(
+      (response) => {
+        this.rows = response.data;
       },
       (error) => {
         console.log(error);
@@ -75,6 +81,12 @@ export default {
   methods: {
     moveWrite() {
       this.$router.push({ name: "boardRegister" });
+    },
+    viewArticle(article) {
+      this.$router.push({
+        name: "boardDetail",
+        params: { articleno: article.articleno },
+      });
     },
   },
 };

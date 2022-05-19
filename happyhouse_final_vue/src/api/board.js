@@ -1,9 +1,11 @@
+/** @format */
+
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-function listArticle(param, success, fail) {
-  api.get(`/board`, { params: param }).then(success).catch(fail);
+function listArticle(success, fail) {
+  api.get(`/board`).then(success).catch(fail);
 }
 
 function writeArticle(article, success, fail) {
@@ -25,4 +27,14 @@ function deleteArticle(articleno, success, fail) {
   api.delete(`/board/${articleno}`).then(success).catch(fail);
 }
 
-export { listArticle, writeArticle, getArticle, modifyArticle, deleteArticle };
+function getTotalCount(success, fail) {
+  api.get(`/board/count`).then(success).catch(fail);
+}
+export {
+  listArticle,
+  writeArticle,
+  getArticle,
+  modifyArticle,
+  deleteArticle,
+  getTotalCount,
+};
