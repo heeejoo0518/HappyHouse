@@ -106,5 +106,7 @@ public class BoardController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+	
+	//게시글, 댓글 기능 전부 헤더 토큰 확인해야하는거 아닌지????
 
 }

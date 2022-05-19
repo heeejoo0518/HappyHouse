@@ -20,7 +20,7 @@
 	</select>
 
 	<insert id="register" parameterType="MemberDto">
-		insert into ssafy_member (userid, username, userpwd, userid, email)
+		insert into ssafy_member (userid, username, userpwd, email)
 		values (#{userid}, #{username}, #{userpwd},#{email})
 	</insert>
 
@@ -30,9 +30,9 @@
 		<trim prefix="set" suffixOverrides=",">
 			<if test="userpwd != null and userpwd !=''">userpwd= #{userpwd},</if>
 			<if test="username != null and username !=''">username = #{username},</if>
-			<if test="email != null and email !=''">email = #{email}</if>
+			<if test="email != null and email !=''">email = #{email},</if>
 		</trim>
-		where userId = #{userId}
+		where userid = #{userid}
 	</update>
 
 	<delete id="delete" parameterType="String">

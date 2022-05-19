@@ -126,19 +126,54 @@ public class MemberController {
 
 	// 회원정보수정//modify
 	@PutMapping("/modify")
-	public ResponseEntity<Map<String, Object>>  modify(@ModelAttribute MemberDto memberDto) throws Exception {
+	public ResponseEntity<Map<String, Object>>  modify(@RequestBody MemberDto memberDto, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		memberService.modify(memberDto);
+		
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			logger.info("사용 가능한 토큰!!!");
+			try {
+				memberService.modify(memberDto);
+				resultMap.put("userInfo", memberService.userInfo(memberDto.getUserid()));
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				logger.error("정보수정 실패 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			logger.error("사용 불가능 토큰!!!");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
+		}
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// 회원탈퇴//delete
 	@DeleteMapping("/delete/{userid}")
-	public ResponseEntity<Map<String, Object>>  delete(@PathVariable("userid") String id) throws Exception {
+	public ResponseEntity<Map<String, Object>>  delete(@PathVariable("userid") String id, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		memberService.delete(id);
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			logger.info("사용 가능한 토큰!!!");
+			try {
+				memberService.delete(id);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				logger.error("회원탈퇴 실패 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			logger.error("사용 불가능 토큰!!!");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
+		}
+		
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }
