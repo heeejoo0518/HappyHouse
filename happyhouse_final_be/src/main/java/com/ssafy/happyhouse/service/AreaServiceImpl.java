@@ -3,10 +3,12 @@ package com.ssafy.happyhouse.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.dto.AreaDto;
 import com.ssafy.happyhouse.mapper.AreaMapper;
 
+@Service
 public class AreaServiceImpl implements AreaService {
 	@Autowired
 	private AreaMapper areaMapper;
