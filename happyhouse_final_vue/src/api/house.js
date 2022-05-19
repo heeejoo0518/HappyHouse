@@ -1,3 +1,5 @@
+/** @format */
+
 import { apiInstance, houseInstance } from "./index.js";
 
 const api = apiInstance();
