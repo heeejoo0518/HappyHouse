@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row>
@@ -67,7 +69,7 @@ export default {
       },
       (error) => {
         console.log(error);
-      },
+      }
     );
   },
   methods: {
