@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.mapper.LikeMapper">
+	<insert id="addArea" parameterType="map">
+		insert into area(userid, dongcode) values(#{userId}, #{dongCode});
+	</insert>
+	
+	<delete id="deleteArea" parameterType="String">
+		delete from area
+		where no=#{areaNo}
+	</delete>
+	
+	<select id="listArea" parameterType="String" resultType="AreaDto">
+		select area.no, area.userid, area.dongCode, baseaddress.lat, baseaddress.lng
+		from area
+		inner join baseaddress
+		on area.dongCode = baseaddress.dongCode
+		inner join ssafy_member
+		on area.userid=ssafy_member.userid
+		where area.userid = #{userId}
+	</select>
+	
+	<insert id="addApt" parameterType="map">
+		insert into likeapt(userid, aptCode) values(#{userId}, #{aptCode});
+	</insert>
+	
+	<delete id="deleteApt" parameterType="map">
+		delete from likeapt
+		where aptCode=#{aptCode} and userid=#{userId}
+	</delete>
+	
+	<select id="listApt" parameterType="String" resultType="HouseInfoDto">
+		select houseinfo.*
+		from likeapt
+		inner join houseinfo
+		using(aptCode)
+		inner join ssafy_member
+		using(userid)
+		where userid=#{userId}
+	</select>
+</mapper>
