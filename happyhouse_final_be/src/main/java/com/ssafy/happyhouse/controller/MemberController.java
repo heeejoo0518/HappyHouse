@@ -117,13 +117,6 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	// 회원정보조회//userInfo
-	// 필요없나..?
-//	@GetMapping("/user/{userid}")
-//	public MemberDto userInfo(@PathVariable("userid") String id) throws Exception {
-//		return memberService.userinfo(id);
-//	}
-
 	// 회원정보수정//modify
 	@PutMapping("/modify")
 	public ResponseEntity<Map<String, Object>>  modify(@RequestBody MemberDto memberDto, HttpServletRequest request) throws Exception {

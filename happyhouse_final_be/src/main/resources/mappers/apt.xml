@@ -5,35 +5,73 @@
 <mapper namespace="com.ssafy.happyhouse.mapper.HouseMapMapper">
 
 	<select id="getSido" resultType="sidoGugunCodeDto">
-		select left(sidoCode,2) sidoCode, sidoName
-		from sidocode
-		order by sidoCode
+		select dongCode, sidoName
+		from dongcode
+		where gugunName is null and dongName is null
+		order by dongcode
 	</select>
 	
 	<select id="getGugunInSido" parameterType="string" resultType="sidoGugunCodeDto">
-		select left(gugunCode,5) gugunCode, gugunName
-		from guguncode
-		where left(gugunCode,2) = #{sido}
-		order by gugunCode
+		select dongCode, gugunName
+		from dongcode
+		where dongName is null and gugunName is not null and sidoName = #{sido}
+		order by dongcode;
 	</select>
 	
-	<select id="getDongInGugun" parameterType="string" resultType="houseInfoDto">
-		select distinct dongName, dongCode
-		from houseinfo
-		where left(dongCode, 5) = #{gugun}
-		order by dongName
+	<select id="getDongInGugun" parameterType="sidoGugunCodeDto" resultType="sidoGugunCodeDto">
+		select dongCode, dongName
+		from dongcode
+		where dongName is not null and sidoName = #{sidoName} and gugunName=#{gugunName}
+		order by dongcode
 	</select>
 	
-	<select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
-		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
-				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice
-		from houseinfo h
-		left join sidocode si
-		on left(h.dongcode,2) = left(si.sidocode,2)
-		left join guguncode gu
-		on left(h.dongcode,5) = left(gu.guguncode,5)
-		where dongCode = #{dong} 
-		order by aptName
+	<!-- 거래목록조회 -->
+	<select id="getHouseDealList" resultType="HouseDealInfo">
+		select *
+		from housedeal
+		where aptCode=#{aptCode}
+		order by dealAmount asc
 	</select>
+	
+	<!-- 아파트 목록 조회 -->
+	<select id="getApts" parameterType="sidoGugunCodeDto" resultType="HouseInfoDto">
+		select i.* 
+		from houseinfo i
+		inner join dongcode d
+		on d.dongCode = i.dongCode
+		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
+		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
+	</select>
+	
+	<!-- 아파트 상세조회 -->
+	<select id="getAptWithDeal" parameterType="Long" resultMap="AptList">
+		select i.*,
+		from houseinfo i
+		where aptCode=#{aptCode}
+	</select>
+	
+	<!-- 아파트 resultMap -->
+	<resultMap type="HouseInfoDto" id="AptList">
+		<result column="aptCode" property="aptCode" />
+		<result column="buildYear" property="buildYear" />
+		<result column="roadName" property="roadName" />
+		<result column="roadNameBonbun" property="roadNameBonbun" />
+		<result column="roadNameBubun" property="roadNameBubun" />
+		<result column="roadNameSeq" property="roadNameSeq" />
+		<result column="roadNameBasementCode" property="roadNameBasementCode" />
+		<result column="roadNameCode" property="roadNameCode" />
+		<result column="dong" property="dong" />
+		<result column="bonbun" property="bonbun" />
+		<result column="bubun" property="bubun" />
+		<result column="sigunguCode" property="sigunguCode" />
+		<result column="eubmyundongCode" property="eubmyundongCode" />
+		<result column="dongCode" property="dongCode" />
+		<result column="landCode" property="landCode" />
+		<result column="apartmentName" property="apartmentName" />
+		<result column="jibun" property="jibun" />
+		<result column="lat" property="lat" />
+		<result column="lng" property="lng" />
+		<collection column="aptCode=aptCode" property="deals" ofType="HouseDealInfo" select="getHouseDealList" />
+	</resultMap>
 	
 </mapper>

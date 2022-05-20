@@ -26,13 +26,19 @@ public class HouseMapServiceImpl implements HouseMapService {
 	}
 
 	@Override
-	public List<HouseInfoDto> getDongInGugun(String gugun) throws Exception {
-		return houseMapMapper.getDongInGugun(gugun);
+	public List<HouseInfoDto> getDongInGugun(SidoGugunCodeDto sidoGugunCodeDto) throws Exception {
+		return houseMapMapper.getDongInGugun(sidoGugunCodeDto);
 	}
 
 	@Override
-	public List<HouseInfoDto> getAptInDong(String dong) throws Exception {
-		return houseMapMapper.getAptInDong(dong);
+	public List<HouseInfoDto> getApts(SidoGugunCodeDto sidoGugunCodeDto) throws Exception {
+		return houseMapMapper.getApts(sidoGugunCodeDto);
+	}
+	
+
+	@Override
+	public HouseInfoDto getAptWithDeal(long aptCode) throws Exception {
+		return houseMapMapper.getAptWithDeal(aptCode);
 	}
 
 }

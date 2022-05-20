@@ -8,11 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SidoGugunCodeDto {
-
 	private String dongCode;
 	private String sidoName;
 	private String gugunName;
 	private String dongName;
-
-
 }

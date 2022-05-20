@@ -7,8 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,34 +20,41 @@ import com.ssafy.happyhouse.service.HouseMapService;
 
 @RestController
 @RequestMapping("/map")
-//@CrossOrigin("*")
 public class HouseMapController {
 	
 	private final Logger logger = LoggerFactory.getLogger(HouseMapController.class);
 
 	@Autowired
-	private HouseMapService haHouseMapService;
+	private HouseMapService houseMapService;
 	
 	@GetMapping("/sido")
 	public ResponseEntity<List<SidoGugunCodeDto>> sido() throws Exception {
-		logger.debug("sido : {}", haHouseMapService.getSido());
-		return new ResponseEntity<List<SidoGugunCodeDto>>(haHouseMapService.getSido(), HttpStatus.OK);
+		logger.debug("sido");
+		return new ResponseEntity<List<SidoGugunCodeDto>>(houseMapService.getSido(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/gugun")
 	public ResponseEntity<List<SidoGugunCodeDto>> gugun(@RequestParam("sido") String sido) throws Exception {
-		logger.debug("gugun : {}", haHouseMapService.getGugunInSido(sido));
-		return new ResponseEntity<List<SidoGugunCodeDto>>(haHouseMapService.getGugunInSido(sido), HttpStatus.OK);
+		logger.debug("gugun");
+		return new ResponseEntity<List<SidoGugunCodeDto>>(houseMapService.getGugunInSido(sido), HttpStatus.OK);
 	}
 	
 	@GetMapping("/dong")
-	public ResponseEntity<List<HouseInfoDto>> dong(@RequestParam("gugun") String gugun) throws Exception {
-		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getDongInGugun(gugun), HttpStatus.OK);
+	public ResponseEntity<List<HouseInfoDto>> dong(@RequestBody SidoGugunCodeDto sidoGugunCodeDto) throws Exception {
+		logger.debug("dong");
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getDongInGugun(sidoGugunCodeDto), HttpStatus.OK);
 	}
 	
 	@GetMapping("/apt")
-	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong) throws Exception {
-		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInDong(dong), HttpStatus.OK);
+	public ResponseEntity<List<HouseInfoDto>> getApts(@RequestBody SidoGugunCodeDto sidoGugunCodeDto) throws Exception {
+		logger.debug("getApt");
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getApts(sidoGugunCodeDto), HttpStatus.OK);
+	}
+	
+	@GetMapping("/apt/${aptCode}")
+	public ResponseEntity<HouseInfoDto> getAptWithDeal(@PathVariable("aptCode") long aptCode) throws Exception {
+		logger.debug("getAptWithDeal");
+		return new ResponseEntity<HouseInfoDto>(houseMapService.getAptWithDeal(aptCode), HttpStatus.OK);
 	}
 	
 }

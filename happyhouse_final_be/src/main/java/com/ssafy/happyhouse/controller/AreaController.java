@@ -27,7 +27,7 @@ import io.swagger.annotations.Api;
 @Api("AreaController V1")
 @RestController
 @RequestMapping("/area")
-public class AreaController {// resultmap에 추가해야됨~~~
+public class AreaController {
 
 	public static final Logger logger = LoggerFactory.getLogger(AreaController.class);
 	private static final String SUCCESS = "success";

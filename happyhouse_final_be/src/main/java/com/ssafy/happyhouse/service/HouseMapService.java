@@ -9,7 +9,8 @@ public interface HouseMapService {
 
 	List<SidoGugunCodeDto> getSido() throws Exception;
 	List<SidoGugunCodeDto> getGugunInSido(String sido) throws Exception;
-	List<HouseInfoDto> getDongInGugun(String gugun) throws Exception;
-	List<HouseInfoDto> getAptInDong(String dong) throws Exception;
+	List<HouseInfoDto> getDongInGugun(SidoGugunCodeDto sidoGugunCodeDto) throws Exception;
+	List<HouseInfoDto> getApts(SidoGugunCodeDto sidoGugunCodeDto) throws Exception;
+	HouseInfoDto getAptWithDeal(long aptCode) throws Exception;
 	
 }

@@ -1,7 +1,5 @@
 package com.ssafy.happyhouse.dto;
 
-import java.util.ArrayList;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "HouseDealDto (아파트정보)", description = "아파트 거래 정보를 가진 Domain Class")
 public class HouseDealInfo {
 	@ApiModelProperty(value = "거래번호")
-	private int no;
+	private long no;
 	@ApiModelProperty(value = "거래금액")
 	private String dealAmount;
 	@ApiModelProperty(value = "거래년도")
@@ -30,5 +28,5 @@ public class HouseDealInfo {
 	@ApiModelProperty(value = "해제여부")
 	private String cancelDealType;
 	@ApiModelProperty(value = "아파트코드")
-	private int aptCode;
+	private long aptCode;
 }
