@@ -51,7 +51,7 @@ public class HouseMapController {
 		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getApts(sidoGugunCodeDto), HttpStatus.OK);
 	}
 	
-	@GetMapping("/apt/${aptCode}")
+	@GetMapping("/apt/{aptCode}")
 	public ResponseEntity<HouseInfoDto> getAptWithDeal(@PathVariable("aptCode") long aptCode) throws Exception {
 		logger.debug("getAptWithDeal");
 		return new ResponseEntity<HouseInfoDto>(houseMapService.getAptWithDeal(aptCode), HttpStatus.OK);

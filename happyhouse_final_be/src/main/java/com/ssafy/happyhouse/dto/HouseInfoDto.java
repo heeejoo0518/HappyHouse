@@ -56,7 +56,7 @@ public class HouseInfoDto {
 	@ApiModelProperty(value = "거래목록")
 	private ArrayList<HouseDealInfo> deals;
 	@ApiModelProperty(value = "최소거래금액")
-	private int lowest;
+	private String lowest;
 	@ApiModelProperty(value = "최대거래금액")
-	private int highest;
+	private String highest;
 }

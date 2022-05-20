@@ -35,10 +35,17 @@ public class HouseMapServiceImpl implements HouseMapService {
 		return houseMapMapper.getApts(sidoGugunCodeDto);
 	}
 	
-
 	@Override
 	public HouseInfoDto getAptWithDeal(long aptCode) throws Exception {
-		return houseMapMapper.getAptWithDeal(aptCode);
+		HouseInfoDto dto = houseMapMapper.getAptWithDeal(aptCode); 
+		if(dto.getDeals().size() > 0) {
+			dto.setLowest(dto.getDeals().get(0).getDealAmount());
+			dto.setHighest(dto.getDeals().get(dto.getDeals().size()-1).getDealAmount());
+		}else {
+			dto.setLowest("0");
+			dto.setHighest("0");
+		}
+		return dto;
 	}
 
 }

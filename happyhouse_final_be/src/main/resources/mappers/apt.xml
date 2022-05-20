@@ -25,13 +25,6 @@
 		order by dongcode
 	</select>
 	
-	<!-- 거래목록조회 -->
-	<select id="getHouseDealList" resultType="HouseDealInfo">
-		select *
-		from housedeal
-		where aptCode=#{aptCode}
-		order by dealAmount asc
-	</select>
 	
 	<!-- 아파트 목록 조회 -->
 	<select id="getApts" parameterType="sidoGugunCodeDto" resultType="HouseInfoDto">
@@ -45,11 +38,19 @@
 	
 	<!-- 아파트 상세조회 -->
 	<select id="getAptWithDeal" parameterType="Long" resultMap="AptList">
-		select i.*,
+		select i.*
 		from houseinfo i
-		where aptCode=#{aptCode}
+		where aptCode = #{aptCode}
 	</select>
 	
+	<!-- 거래목록조회 -->
+	<select id="getHouseDealList" resultType="HouseDealInfo">
+		select *
+		from housedeal
+		where aptCode = #{aptCode} and cancelDealType != 'O'
+		order by replace(dealAmount,",","")+0,dealYear,dealMonth,dealDay,area
+	</select>
+
 	<!-- 아파트 resultMap -->
 	<resultMap type="HouseInfoDto" id="AptList">
 		<result column="aptCode" property="aptCode" />
@@ -71,7 +72,7 @@
 		<result column="jibun" property="jibun" />
 		<result column="lat" property="lat" />
 		<result column="lng" property="lng" />
-		<collection column="aptCode=aptCode" property="deals" ofType="HouseDealInfo" select="getHouseDealList" />
+		<collection column="aptCode=aptCode" property="deals" javaType="list" ofType="HouseDealInfo" select="getHouseDealList" />
 	</resultMap>
 	
 </mapper>

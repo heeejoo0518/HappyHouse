@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "HouseDealDto (아파트정보)", description = "아파트 거래 정보를 가진 Domain Class")
+@ApiModel(value = "HouseDealInfo (거래정보)", description = "아파트 거래 정보를 가진 Domain Class")
 public class HouseDealInfo {
 	@ApiModelProperty(value = "거래번호")
 	private long no;
