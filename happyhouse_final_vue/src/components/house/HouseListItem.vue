@@ -1,22 +1,21 @@
 <template>
-  <b-row
-    class="m-2"
+  <b-card
+    no-body
     @click="selectHouse"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
+    img-src="https://picsum.photos/250/250/?image=58"
+    img-alt="집이미지"
+    img-top
   >
-    <b-col cols="2" class="text-center align-self-center">
-      <b-img
-        thumbnail
-        src="https://picsum.photos/250/250/?image=58"
-        alt="Image 1"
-      ></b-img>
-    </b-col>
-    <b-col cols="10" class="align-self-center">
-      {{ house.apartmentName }}
-    </b-col>
-  </b-row>
+    <b-card-body>
+      <b-card-title>{{ house.apartmentName }}</b-card-title>
+      <b-card-sub-title class="mb-2"
+        >{{ house.dong }} {{ house.highest }}</b-card-sub-title
+      >
+    </b-card-body>
+  </b-card>
 </template>
 
 <script>

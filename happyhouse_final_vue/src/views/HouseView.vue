@@ -5,11 +5,9 @@
     <h3 class="underline-orange">
       <b-icon icon="house-fill"></b-icon> House Service
     </h3>
-    <toggle-button />
-    <toggle-button :value="false" :sync="true" :labels="true" />
     <b-row>
       <b-col>
-        <house-search-bar></house-search-bar>
+        <house-search-bar @toggle="toggleView"></house-search-bar>
       </b-col>
     </b-row>
     <b-row>
@@ -19,16 +17,22 @@
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
-// import HouseList from "@/components/house/HouseList.vue";
-// import HouseDetail from "@/components/house/HouseDetail.vue";
-// import KaKaoMapView from "@/views/KaKaoMap.vue";
 export default {
   name: "HouseView",
+  data() {
+    return {
+      toggle: true,
+    };
+  },
   components: {
     HouseSearchBar,
-    // HouseList,
-    // HouseDetail,
-    // KaKaoMapView,
+  },
+  methods: {
+    toggleView() {
+      this.toggle = !this.toggle;
+      if (this.toggle) this.$router.push({ name: "houseList" });
+      else this.$router.push({ name: "houseMap" });
+    },
   },
 };
 </script>

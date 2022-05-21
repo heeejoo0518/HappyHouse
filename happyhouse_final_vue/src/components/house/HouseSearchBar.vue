@@ -30,7 +30,8 @@
       ></b-form-input>
     </b-col>
     <b-col class="sm-3" align="left">
-      <b-button variant="outline-primary" @click="searchApt">검색</b-button>
+      <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
+      <toggle-button @change="toggleView"></toggle-button>
     </b-col>
   </b-row>
 </template>
@@ -38,16 +39,6 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
-/*
-  namespaced: true를 사용했기 때문에 선언해줍니다.
-  index.js 에서 modules 객체의 '키' 이름입니다.
-
-  modules: {
-    키: 값
-    memberStore: memberStore,
-    houseStore: houseStore
-  }
-*/
 const houseStore = "houseStore";
 
 export default {
@@ -112,6 +103,9 @@ export default {
       };
 
       this.getHouseList(data);
+    },
+    toggleView() {
+      this.$emit("toggle");
     },
   },
 };

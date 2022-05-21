@@ -95,7 +95,7 @@ const routes = [
     name: "house",
     beforeEnter: onlyAuthUser,
     component: () => import("@/views/HouseView.vue"),
-    redirect: "",
+    redirect: "/house/list",
     children: [
       {
         path: "list",
@@ -106,11 +106,6 @@ const routes = [
         path: "map",
         name: "houseMap",
         component: () => import("@/components/house/HouseMap.vue"),
-      },
-      {
-        path: "detail",
-        name: "houseDetail",
-        component: () => import("@/components/house/HouseDetail.vue"),
       },
     ],
   },
