@@ -4,35 +4,35 @@
   <b-row class="mt-4 mb-4 text-center">
     <b-col class="sm-3">
       <b-form-select
-        v-model="dongCode"
+        v-model="sidoName"
         :options="sidos"
         @change="gugunList"
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
       <b-form-select
-        v-model="dongCode"
+        v-model="gugunName"
         :options="guguns"
         @change="dongList"
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
       <b-form-select
-        v-model="dongCode"
+        v-model="dongName"
         :options="dongs"
         @change="searchApt"
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
       <b-form-input
-        v-model.trim="dongCode"
-        placeholder="동코드 입력...(예 : 11110)"
-        @keypress.enter="sendKeyword"
+        v-model.trim.lazy="aptName"
+        placeholder="아파트 이름 입력"
       ></b-form-input>
+      <!-- @keypress="searchApt" -->
     </b-col>
-    <b-col class="sm-3" align="left">
-      <b-button variant="outline-primary" @click="sendKeyword">검색</b-button>
-    </b-col>
+    <!--     <b-col class="sm-3" align="left">
+      <b-button variant="outline-primary" @click="searchApt">검색</b-button>
+    </b-col> -->
   </b-row>
 </template>
 
@@ -47,7 +47,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
     키: 값
     memberStore: memberStore,
     houseStore: houseStore
-  }  
+  }
 */
 const houseStore = "houseStore";
 
@@ -55,22 +55,25 @@ export default {
   name: "HouseSearchBar",
   data() {
     return {
-      sidoCode: null,
-      gugunCode: null,
-      dongCode: null,
+      sidoName: null,
+      gugunName: null,
+      dongName: null,
+      aptName: null,
     };
   },
   computed: {
     ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
-    // sidos() {
-    //   return this.$store.state.sidos;
-    // },
   },
   created() {
-    // this.$store.dispatch("getSido");
-    // this.sidoList();
     this.CLEAR_SIDO_LIST();
+    this.CLEAR_HOUSE_LIST();
+    this.CLEAR_HOUSE();
     this.getSido();
+  },
+  watch: {
+    aptName: function () {
+      if (this.gugunName) this.searchApt();
+    },
   },
   methods: {
     ...mapActions(houseStore, [
@@ -83,27 +86,34 @@ export default {
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "CLEAR_DONG_LIST",
+      "CLEAR_HOUSE_LIST",
+      "CLEAR_HOUSE",
     ]),
-    // sidoList() {
-    //   this.getSido();
-    // },
     gugunList() {
-      console.log(this.dongCode);
+      this.CLEAR_HOUSE_LIST();
       this.CLEAR_GUGUN_LIST();
-      this.gugunCode = null;
-      if (this.dongCode) this.getGugun(this.dongCode);
+      this.CLEAR_HOUSE();
+      this.gugunName = null;
+      if (this.sidoName) this.getGugun(this.sidoName);
     },
     dongList() {
-      console.log(this.gugunCode);
       this.CLEAR_DONG_LIST();
-      this.dongCode = null;
-      if (this.gugunCode) this.getDong(this.gugunCode);
-      if (this.gugunCode) this.getHouseList(this.gugunCode);
+      this.dongName = null;
+      if (this.gugunName) {
+        this.getDong({ sidoName: this.sidoName, gugunName: this.gugunName });
+        this.searchApt();
+      }
     },
     searchApt() {
-      if (this.dongCode) this.getHouseList(this.dongCode);
+      let data = {
+        sidoName: this.sidoName,
+        gugunName: this.gugunName,
+        dongName: this.dongName,
+        aptName: this.aptName,
+      };
+
+      this.getHouseList(data);
     },
-    sendKeyword() {},
   },
 };
 </script>

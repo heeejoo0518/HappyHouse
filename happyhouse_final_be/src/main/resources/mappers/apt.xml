@@ -25,15 +25,15 @@
 		order by dongcode
 	</select>
 	
-	
 	<!-- 아파트 목록 조회 -->
-	<select id="getApts" parameterType="sidoGugunCodeDto" resultType="HouseInfoDto">
+	<select id="getApts" parameterType="map" resultType="HouseInfoDto">
 		select i.* 
 		from houseinfo i
 		inner join dongcode d
 		on d.dongCode = i.dongCode
 		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
 		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
+		<if test="aptName != null and aptName != ''">and i.apartmentName like concat('%',#{aptName},'%')</if>
 	</select>
 	
 	<!-- 아파트 상세조회 -->

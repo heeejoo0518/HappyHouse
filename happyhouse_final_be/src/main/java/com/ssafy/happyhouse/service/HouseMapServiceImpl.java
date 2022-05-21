@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class HouseMapServiceImpl implements HouseMapService {
 	}
 
 	@Override
-	public List<HouseInfoDto> getApts(SidoGugunCodeDto sidoGugunCodeDto) throws Exception {
-		return houseMapMapper.getApts(sidoGugunCodeDto);
+	public List<HouseInfoDto> getApts(Map<String,Object> map) throws Exception {
+		return houseMapMapper.getApts(map);
 	}
 	
 	@Override
