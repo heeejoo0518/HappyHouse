@@ -9,7 +9,6 @@
 
 <script>
 import NaviBar from "@/components/layout/HeaderNaviBar.vue";
-
 export default {
   name: "App",
   components: {
@@ -17,7 +16,6 @@ export default {
   },
 };
 </script>
-
 <style>
 a {
   text-decoration: none;
