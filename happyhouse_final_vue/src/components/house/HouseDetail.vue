@@ -1,68 +1,73 @@
 <template>
-  <b-container v-if="house" class="bv-example-row">
-    <b-row>
-      <b-col
-        ><h3>{{ house.apartmentName }}</h3></b-col
-      >
-    </b-row>
-    <b-row class="mb-2 mt-1">
-      <b-col
-        ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img
-      ></b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="secondary"
-          >도로명주소 : {{ house.roadName }}</b-alert
+  <b-modal
+    ref="house-detail-modal"
+    v-if="house"
+    v-model="ms"
+    :title="house.apartmentName"
+    class="bv-example-row"
+    @hidden="CLEAR_HOUSE"
+  >
+    <b-container fluid>
+      {{ house.apartmentName }}
+    </b-container>
+    <template #modal-footer>
+      <div class="">
+        <p class="float-left"></p>
+        <b-button
+          variant="primary"
+          size="sm"
+          class="float-right"
+          @click="addApt"
         >
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="primary"
-          >아파트 이름 : {{ house.apartmentName }}
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="info">법정동 : {{ house.dong }} </b-alert>
-      </b-col>
-    </b-row>
-    <!--     <b-row>
-      <b-col>
-        <b-alert show variant="warning">층수 : {{ house.층 }}층</b-alert>
-      </b-col>
-    </b-row> -->
-    <b-row>
-      <b-col>
-        <b-alert show variant="danger"
-          >거래금액 : {{ house.lowest }} ~ {{ house.highest }}</b-alert
-        >
-      </b-col>
-    </b-row>
-  </b-container>
+          관심지역으로 추가
+        </b-button>
+      </div>
+    </template>
+  </b-modal>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+import { addLikeApt } from "@/api/house";
 
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseDetail",
+  data() {
+    return {
+      ms: this.house != null,
+    };
+  },
   computed: {
     ...mapState(houseStore, ["house"]),
-    // house() {
-    //   return this.$store.state.house;
-    // },
+    ...mapState(memberStore, ["userInfo"]),
   },
-  // filters: {
-  //   price(value) {
-  //     if (!value) return value;
-  //     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  //   },
-  // },
+  watch: {
+    house: function () {
+      this.ms = this.house != null;
+    },
+  },
+  methods: {
+    ...mapMutations(houseStore, ["CLEAR_HOUSE"]),
+    addApt() {
+      addLikeApt(
+        { userid: this.userInfo.userid, aptCode: this.house.aptCode },
+        ({ data }) => {
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data.message === "success") {
+            msg = "등록이 완료되었습니다.";
+          }
+          alert(msg);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+      this.ms = false;
+    },
+  },
 };
 </script>
 

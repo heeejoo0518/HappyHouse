@@ -46,7 +46,7 @@ public class LikeController {
 	 * @throws Exception
 	 */
 	@PostMapping("/area/{userid}/{dongcode}")
-	public ResponseEntity<Map<String, Object>> addArea(@PathVariable("userid") String userId,
+	public ResponseEntity<String> addArea(@PathVariable("userid") String userId,
 			@PathVariable("dongcode") String dongcode, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
@@ -55,11 +55,10 @@ public class LikeController {
 			logger.info("사용 가능한 토큰!!!");
 			try {
 				likeService.addArea(userId, dongcode);
-				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
+				return new ResponseEntity<String>(SUCCESS, status);
 			} catch (Exception e) {
 				logger.error("관심지역 등록 실패 : {}", e);
-				resultMap.put("message", e.getMessage());
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
 		} else {
@@ -68,7 +67,7 @@ public class LikeController {
 			status = HttpStatus.ACCEPTED;
 		}
 
-		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+		return new ResponseEntity<String>(FAIL, status);
 	}
 
 	/**

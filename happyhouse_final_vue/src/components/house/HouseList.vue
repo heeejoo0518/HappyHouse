@@ -10,7 +10,7 @@
           :house="house"
           style="margin-bottom: 3rem" /></b-card-group
     ></b-row>
-    <house-detail></house-detail>
+    <house-detail />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
     <b-row>
@@ -23,7 +23,7 @@
 import HouseListItem from "@/components/house/HouseListItem.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const houseStore = "houseStore";
 
@@ -37,7 +37,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(houseStore, ["houses"]),
+    ...mapState(houseStore, ["houses", "house"]),
+  },
+  methods: {
+    ...mapActions(houseStore, ["getHouseDetail"]),
   },
 };
 </script>

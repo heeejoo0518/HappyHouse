@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    @click="selectHouse"
+    @click="selectHouse(house.aptCode)"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
@@ -20,7 +20,6 @@
 
 <script>
 import { mapActions } from "vuex";
-
 const houseStore = "houseStore";
 
 export default {
@@ -35,8 +34,8 @@ export default {
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
-    selectHouse() {
-      this.getHouseDetail(this.house.aptCode);
+    selectHouse(aptCode) {
+      this.getHouseDetail(aptCode);
     },
     colorChange(flag) {
       this.isColor = flag;

@@ -113,7 +113,6 @@ const houseStore = {
       houseDetail(
         aptCode,
         ({ data }) => {
-          console.log(data);
           commit("SET_DETAIL_HOUSE", data);
         },
         (error) => {

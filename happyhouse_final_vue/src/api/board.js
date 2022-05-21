@@ -3,6 +3,7 @@
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
+api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
 
 function listArticle(success, fail) {
   api.get(`/board`).then(success).catch(fail);
