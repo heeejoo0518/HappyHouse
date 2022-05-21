@@ -95,6 +95,24 @@ const routes = [
     name: "house",
     beforeEnter: onlyAuthUser,
     component: () => import("@/views/HouseView.vue"),
+    redirect: "",
+    children: [
+      {
+        path: "list",
+        name: "houseList",
+        component: () => import("@/components/house/HouseList.vue"),
+      },
+      {
+        path: "map",
+        name: "houseMap",
+        component: () => import("@/components/house/HouseMap.vue"),
+      },
+      {
+        path: "detail",
+        name: "houseDetail",
+        component: () => import("@/components/house/HouseDetail.vue"),
+      },
+    ],
   },
   {
     path: "/todo",

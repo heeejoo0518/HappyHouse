@@ -28,11 +28,10 @@
         v-model.trim.lazy="aptName"
         placeholder="아파트 이름 입력"
       ></b-form-input>
-      <!-- @keypress="searchApt" -->
     </b-col>
-    <!--     <b-col class="sm-3" align="left">
+    <b-col class="sm-3" align="left">
       <b-button variant="outline-primary" @click="searchApt">검색</b-button>
-    </b-col> -->
+    </b-col>
   </b-row>
 </template>
 
