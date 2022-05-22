@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL, APT_DEAL_URL } from "@/config";
+import { API_BASE_URL, HPT_URL } from "@/config";
 
 // axios 객체 생성
 function apiInstance() {
@@ -12,9 +12,9 @@ function apiInstance() {
   return instance;
 }
 
-function houseInstance() {
+function hospitalInstance() {
   const instance = axios.create({
-    baseURL: APT_DEAL_URL,
+    baseURL: HPT_URL,
     headers: {
       "Content-type": "application/json",
     },
@@ -22,4 +22,4 @@ function houseInstance() {
   return instance;
 }
 
-export { apiInstance, houseInstance };
+export { apiInstance, hospitalInstance };

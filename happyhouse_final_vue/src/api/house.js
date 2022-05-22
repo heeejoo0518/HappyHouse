@@ -1,12 +1,11 @@
 /** @format */
 
-// import { apiInstance, houseInstance } from "./index.js";
-import { apiInstance } from "./index.js";
+import { apiInstance, hospitalInstance } from "./index.js";
 
 const api = apiInstance();
 api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
 
-// const house = houseInstance();
+const hospital = hospitalInstance();
 
 function sidoList(success, fail) {
   api.get(`/map/sido`).then(success).catch(fail);
@@ -43,6 +42,10 @@ function getLikeApts(userid, success, fail) {
   api.get(`/like/apt/list/${userid}`).then(success).catch(fail);
 }
 
+function hospitalList(params, success, fail) {
+  hospital.get(``, { params: params }).then(success).catch(fail);
+}
+
 export {
   sidoList,
   gugunList,
@@ -52,4 +55,5 @@ export {
   addLikeApt,
   deleteLikeApt,
   getLikeApts,
+  hospitalList,
 };
