@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.happyhouse.mapper.TicketMapper">
+	<!-- 예정 공연 정보 조회 -->
+	<select id="retrieveTicket" resultType="Ticket">
+	select * from tickets
+	where STR_TO_DATE(substr(ticketdate,-10,10), '%Y.%m.%d') >= date_format(now(),'%Y.%m.%d')
+	order by STR_TO_DATE(substr(ticketdate,1,10), '%Y.%m.%d')
+	</select>
+
+	<!-- 예정 공연 총 개수 -->
+	<select id="getTotalCount" resultType="int">
+	select count(ticketno) from tickets
+	where STR_TO_DATE(substr(ticketdate,-10,10), '%Y.%m.%d') >= date_format(now(),'%Y.%m.%d')
+	</select>
+
+</mapper>
+

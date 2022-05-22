@@ -26,7 +26,6 @@ import com.ssafy.happyhouse.service.JwtServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
 @RequestMapping("/board")
 public class BoardController {

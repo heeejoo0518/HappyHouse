@@ -86,9 +86,9 @@ const routes = [
     ],
   },
   {
-    path: "/instagram",
-    name: "instagram",
-    component: () => import("@/views/InstagramView.vue"),
+    path: "/ticket",
+    name: "ticket",
+    component: () => import("@/views/TicketView.vue"),
   },
   {
     path: "/house",
