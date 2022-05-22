@@ -5,7 +5,8 @@
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
-    img-src="https://picsum.photos/250/250/?image=58"
+    img-height="150"
+    :img-src="imgsrc"
     img-alt="집이미지"
     img-top
   >
@@ -28,6 +29,14 @@ export default {
     return {
       isColor: false,
     };
+  },
+  computed: {
+    imgsrc() {
+      if (!this.house) return require("@/assets/apt/" + "apt.png");
+      return require("@/assets/apt/" +
+        ((this.house.aptCode % 20) + 1) +
+        ".jpg");
+    },
   },
   props: {
     house: Object,

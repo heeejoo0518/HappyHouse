@@ -9,12 +9,14 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import ToggleButton from "vue-js-toggle-button";
+import InfiniteLoading from "vue-infinite-loading";
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 Vue.use(ToggleButton);
+Vue.use(InfiniteLoading);
 Vue.config.productionTip = false;
 
 new Vue({

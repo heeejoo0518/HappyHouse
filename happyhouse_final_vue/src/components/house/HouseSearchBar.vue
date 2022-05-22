@@ -25,7 +25,7 @@
     </b-col>
     <b-col class="sm-3">
       <b-form-input
-        v-model.trim.lazy="aptName"
+        v-model.lazy.trim="aptName"
         placeholder="아파트 이름 입력"
       ></b-form-input>
     </b-col>
