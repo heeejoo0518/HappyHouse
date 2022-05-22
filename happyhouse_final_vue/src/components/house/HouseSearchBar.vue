@@ -13,7 +13,7 @@
       <b-form-select
         v-model="gugunName"
         :options="guguns"
-        @change="dongList"
+        @change="duplicateSearch"
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
@@ -52,12 +52,19 @@ export default {
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "dongs", "houses"]),
+    ...mapState(houseStore, [
+      "sidos",
+      "guguns",
+      "dongs",
+      "houses",
+      "hospitals",
+    ]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
     this.CLEAR_HOUSE_LIST();
     this.CLEAR_HOUSE();
+    this.CLEAR_HOSPITAL_LIST();
     this.getSido();
   },
   watch: {
@@ -71,6 +78,7 @@ export default {
       "getGugun",
       "getDong",
       "getHouseList",
+      "getHospitalList",
     ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
@@ -78,6 +86,7 @@ export default {
       "CLEAR_DONG_LIST",
       "CLEAR_HOUSE_LIST",
       "CLEAR_HOUSE",
+      "CLEAR_HOSPITAL_LIST",
     ]),
     gugunList() {
       this.CLEAR_HOUSE_LIST();
@@ -106,6 +115,19 @@ export default {
     },
     toggleView() {
       this.$emit("toggle");
+    },
+
+    hospitalList() {
+      this.CLEAR_HOSPITAL_LIST();
+      let data = {
+        sidoName: this.sidoName,
+        gugunName: this.gugunName,
+      };
+      this.getHospitalList(data);
+    },
+    duplicateSearch() {
+      this.dongList();
+      this.hospitalList();
     },
   },
 };

@@ -6,6 +6,7 @@ import {
   dongList,
   houseList,
   houseDetail,
+  hospitalList,
 } from "@/api/house.js";
 
 const houseStore = {
@@ -16,6 +17,7 @@ const houseStore = {
     dongs: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
+    hospitals: [],
   },
 
   getters: {},
@@ -57,6 +59,12 @@ const houseStore = {
     },
     CLEAR_HOUSE: (state) => {
       state.house = null;
+    },
+    CLEAR_HOSPITAL_LIST: (state) => {
+      state.hospitals = [];
+    },
+    SET_HOSPITAL_LIST: (state, hospitals) => {
+      state.hospitals = hospitals;
     },
   },
 
@@ -114,6 +122,24 @@ const houseStore = {
         aptCode,
         ({ data }) => {
           commit("SET_DETAIL_HOUSE", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+    getHospitalList: ({ commit }, sidogugun) => {
+      const SERVICE_KEY = process.env.VUE_APP_HPT_API_KEY;
+      const params = {
+        Q0: sidogugun.sidoName,
+        Q1: sidogugun.gugunName,
+        serviceKey: decodeURIComponent(SERVICE_KEY),
+      };
+      hospitalList(
+        params,
+        ({ data }) => {
+          console.log(data);
+          commit("SET_HOSPITAL_LIST", data);
         },
         (error) => {
           console.log(error);
