@@ -3,15 +3,20 @@
 <template>
   <div>
     <div id="map"></div>
+    <house-detail />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
+import HouseDetail from "@/components/house/HouseDetail.vue";
 const houseStore = "houseStore";
 
 export default {
   name: "HouseMap",
+  components: {
+    HouseDetail,
+  },
   data() {
     return {
       map: null,
@@ -22,7 +27,9 @@ export default {
     ...mapState(houseStore, ["house", "houses"]),
   },
   methods: {
+    ...mapActions(houseStore, ["getHouseDetail"]),
     makeMarkers() {
+      var t = this;
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
@@ -42,22 +49,39 @@ export default {
             parseFloat(house.lng),
           ),
           title: house.apartmentName,
+          clickable: true,
         });
         marker.id = "marker" + idx;
-
+        this.markers.push(marker);
         var infowindow = new kakao.maps.InfoWindow({
-          content: house.apartmentName,
+          position: new kakao.maps.LatLng(house.lat, house.lng),
+          content: `<div style="width:200px;     
+          display: block;
+          background: #50627F;
+          color: #fff;
+          text-align: center;
+          height: 24px;
+          line-height:22px;
+          border-radius:4px;
+          padding:0px 10px;">${house.apartmentName}</div>`,
         });
-
-        (function (marker, infowindow) {
-          kakao.maps.event.addListener(marker, "mouseover", function () {
-            infowindow.open(this.map, marker);
-          });
-          kakao.maps.event.addListener(marker, "mouseout", function () {
-            infowindow.close();
-          });
-        })(marker, infowindow),
-          this.markers.push(marker);
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(
+          marker,
+          "mouseover",
+          this.makeOverListener(this.map, marker, infowindow),
+        );
+        kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          this.makeOutListener(infowindow),
+        );
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function () {
+          t.getHouseDetail(house.aptCode);
+        });
       });
     },
     initMap() {
@@ -71,6 +95,19 @@ export default {
     },
     setCenter(lat, lng) {
       this.map.setCenter(new kakao.maps.LatLng(lat, lng));
+    },
+    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+    makeOverListener(map, marker, infowindow) {
+      return function () {
+        infowindow.open(map, marker);
+      };
+    },
+
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+    makeOutListener(infowindow) {
+      return function () {
+        infowindow.close();
+      };
     },
   },
   watch: {
