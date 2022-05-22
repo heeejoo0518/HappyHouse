@@ -15,33 +15,22 @@ export default {
   data() {
     return {
       map: null,
-      markers: [],
-      positions: [],
     };
   },
   computed: {
     ...mapState(houseStore, ["house", "houses"]),
-  },
+    markers() {
+      let tmp = [];
+      if (this.houses.length == 0) return tmp;
+      // let dtmp = this.markers.slice();
+      // dtmp.forEach((marker) => {
+      //   marker.setMap(null);
+      // });
 
-  methods: {
-    initMap() {
-      const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
-      const options = {
-        //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-        level: 5, //지도의 레벨(확대, 축소 정도)
-      };
-      this.map = new kakao.maps.Map(container, options);
-    },
+      this.map.setCenter(
+        new kakao.maps.LatLng(this.houses[0].lat, this.houses[0].lng),
+      );
 
-    deleteMarker() {
-      this.markers.forEach((marker) => {
-        marker.setMap(null);
-      });
-      this.markers = [];
-    },
-
-    displayMarker() {
       let marker = null;
       this.houses.forEach((house, idx) => {
         marker = new kakao.maps.Marker({
@@ -55,7 +44,7 @@ export default {
         marker.id = "marker" + idx;
 
         var infowindow = new kakao.maps.InfoWindow({
-          content: house.apartmentName, //html태그쓰기
+          content: house.apartmentName,
         });
         (function (marker, infowindow) {
           kakao.maps.event.addListener(marker, "mouseover", function () {
@@ -66,22 +55,70 @@ export default {
           });
         })(marker, infowindow);
 
-        this.markers.push(marker);
+        tmp.push(marker);
       });
-    },
-    setCenter(lat, lng) {
-      this.map.setCenter(new kakao.maps.LatLng(lat, lng));
+      return tmp;
     },
   },
-  watch: {
-    houses: function () {
-      if (this.houses.length == 0) return;
-      this.deleteMarker();
-      this.map.setCenter(
-        new kakao.maps.LatLng(this.houses[0].lat, this.houses[0].lng),
-      );
-      this.displayMarker();
+
+  methods: {
+    initMap() {
+      const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
+      const options = {
+        //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+        level: 5, //지도의 레벨(확대, 축소 정도)
+      };
+      this.map = new kakao.maps.Map(container, options);
     },
+
+    // deleteMarker() {
+    //   this.markers.forEach((marker) => {
+    //     marker.setMap(null);
+    //   });
+    // },
+
+    // displayMarker() {
+    //   let marker = null;
+    //   this.houses.forEach((house, idx) => {
+    //     marker = new kakao.maps.Marker({
+    //       map: this.map,
+    //       position: new kakao.maps.LatLng(
+    //         parseFloat(house.lat),
+    //         parseFloat(house.lng),
+    //       ),
+    //       title: house.apartmentName,
+    //     });
+    //     marker.id = "marker" + idx;
+
+    //     var infowindow = new kakao.maps.InfoWindow({
+    //       content: house.apartmentName, //html태그쓰기
+    //     });
+    //     (function (marker, infowindow) {
+    //       kakao.maps.event.addListener(marker, "mouseover", function () {
+    //         infowindow.open(this.map, marker);
+    //       });
+    //       kakao.maps.event.addListener(marker, "mouseout", function () {
+    //         infowindow.close();
+    //       });
+    //     })(marker, infowindow);
+
+    //     this.markers.push(marker);
+    //   });
+    // },
+    // setCenter(lat, lng) {
+    //   this.map.setCenter(new kakao.maps.LatLng(lat, lng));
+    // },
+  },
+  watch: {
+    // houses: function () {
+    //   if (this.houses.length == 0) return;
+    //   this.deleteMarker();
+    //   this.map.setCenter(
+    //     new kakao.maps.LatLng(this.houses[0].lat, this.houses[0].lng),
+    //   );
+    //   this.displayMarker();
+    // },
   },
   mounted() {
     if (!window.kakao || !window.kakao.maps) {
