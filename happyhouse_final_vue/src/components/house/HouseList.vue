@@ -10,6 +10,7 @@
           :house="house"
           style="margin-bottom: 3rem" /></b-card-group
     ></b-row>
+    <infinite-loading @infinite="InfiniteHandler" spinner=""></infinite-loading>
     <house-detail />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
@@ -34,13 +35,21 @@ export default {
     HouseDetail,
   },
   data() {
-    return {};
+    return {
+      limit: 0,
+    };
+  },
+  created() {
+    this.$emit("saveToggle", this.$route.name);
   },
   computed: {
     ...mapState(houseStore, ["houses", "house"]),
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
+    infiniteHandler($state) {
+      console.log($state);
+    },
   },
 };
 </script>

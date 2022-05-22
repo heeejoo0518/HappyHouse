@@ -11,7 +11,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <router-view />
+      <router-view @saveToggle="currentPage" />
     </b-row>
   </b-container>
 </template>
@@ -21,7 +21,7 @@ export default {
   name: "HouseView",
   data() {
     return {
-      toggle: true,
+      toggle: "",
     };
   },
   components: {
@@ -29,9 +29,18 @@ export default {
   },
   methods: {
     toggleView() {
-      this.toggle = !this.toggle;
-      if (this.toggle) this.$router.push({ name: "houseList" });
-      else this.$router.push({ name: "houseMap" });
+      switch (this.toggle) {
+        case "houseList":
+          this.toggle = "houseMap";
+          break;
+        case "houseMap":
+          this.toggle = "houseList";
+          break;
+      }
+      this.$router.push({ name: this.toggle });
+    },
+    currentPage(pgName) {
+      this.toggle = pgName;
     },
   },
 };

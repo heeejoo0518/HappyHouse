@@ -23,6 +23,9 @@ export default {
       markers: [],
     };
   },
+  created() {
+    this.$emit("saveToggle", this.$route.name);
+  },
   computed: {
     ...mapState(houseStore, ["house", "houses"]),
   },
