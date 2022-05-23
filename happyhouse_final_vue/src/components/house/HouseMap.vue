@@ -3,7 +3,7 @@
 <template>
   <div>
     <div id="map"></div>
-    <house-detail />
+    <house-detail ref="detailModal" />
   </div>
 </template>
 
@@ -89,6 +89,7 @@ export default {
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
           t.getHouseDetail(house.aptCode);
+          t.$refs.detailModal.$refs.modal.show();
         });
       });
     },
