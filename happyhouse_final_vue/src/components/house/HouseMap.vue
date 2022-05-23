@@ -44,6 +44,7 @@ export default {
       );
 
       let marker = null;
+      const ImgApt = require("@/assets/flat.png");
       this.houses.forEach((house, idx) => {
         marker = new kakao.maps.Marker({
           map: this.map,
@@ -52,6 +53,10 @@ export default {
             parseFloat(house.lng),
           ),
           title: house.apartmentName,
+          image: new kakao.maps.MarkerImage(
+            ImgApt,
+            new kakao.maps.Size(24, 35),
+          ),
           clickable: true,
         });
         marker.id = "marker" + idx;
