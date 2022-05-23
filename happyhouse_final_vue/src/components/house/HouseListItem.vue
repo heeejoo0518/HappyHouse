@@ -38,6 +38,7 @@ export default {
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
     selectHouse(aptCode) {
+      this.$emit("openModal");
       this.getHouseDetail(aptCode);
     },
     colorChange(flag) {

@@ -1,8 +1,7 @@
 <template>
   <b-modal
-    ref="house-detail-modal"
-    v-if="house"
-    v-model="ms"
+    id="house-detail-modal"
+    ref="modal"
     :title="house.apartmentName"
     class="bv-example-row"
     @hidden="CLEAR_HOUSE"
@@ -36,18 +35,11 @@ const memberStore = "memberStore";
 export default {
   name: "HouseDetail",
   data() {
-    return {
-      ms: this.house != null,
-    };
+    return {};
   },
   computed: {
     ...mapState(houseStore, ["house"]),
     ...mapState(memberStore, ["userInfo"]),
-  },
-  watch: {
-    house: function () {
-      this.ms = this.house != null;
-    },
   },
   methods: {
     ...mapMutations(houseStore, ["CLEAR_HOUSE"]),
@@ -65,7 +57,6 @@ export default {
           console.log(error);
         },
       );
-      this.ms = false;
     },
   },
 };

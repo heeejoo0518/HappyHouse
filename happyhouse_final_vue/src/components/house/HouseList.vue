@@ -8,10 +8,11 @@
       >
         <house-list-item
           :house="house"
+          @openModal="openModal"
           style="margin-bottom: 3rem" /></b-card-group
     ></b-row>
     <!-- <infinite-loading @infinite="InfiniteHandler" spinner=""></infinite-loading> -->
-    <house-detail />
+    <house-detail ref="detailModal" />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
     <b-row>
@@ -47,6 +48,9 @@ export default {
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
+    openModal() {
+      this.$refs.detailModal.$refs.modal.show();
+    },
     // infiniteHandler($state) {
     //   console.log($state);
     // },
