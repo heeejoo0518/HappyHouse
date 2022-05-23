@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <form ref="form" @submit.stop.prevent>
+    <form ref="form" @submit.stop.prevent="handleSubmit">
       <b-row>
         <b-col cols="2"></b-col>
         <b-col cols="3" align-self="end" class="subject"
@@ -72,8 +72,7 @@
 
 <script>
 import { checkUser, register, modify } from "@/api/member";
-// import { mapActions } from "vuex";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "MemberInputItem",
@@ -90,9 +89,7 @@ export default {
   computed: {
     ...mapState("memberStore", ["userInfo"]),
   },
-  mounted() {
-    // let token = sessionStorage.getItem("access-token");
-
+  created() {
     if (this.type === "modify") {
       this.user.userid = this.userInfo.userid;
       this.user.username = this.userInfo.username;
@@ -100,31 +97,33 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("memberStore", ["SET_USER_INFO"]),
+
     checkFormValidty() {
       if (!this.$refs.form.checkValidity()) return false;
+      return true;
+    },
+    async handleSubmit() {
+      if (!this.checkFormValidty()) {
+        return;
+      }
       if (this.type === "modify") {
-        checkUser(
+        this.pwdState = null;
+        await checkUser(
           { userid: this.user.userid, userpwd: this.user.userpwd },
           ({ data }) => {
-            console.log(data);
             this.pwdState = data.message === "success";
           },
           (error) => {
             console.log(error);
           },
         );
-        return this.pwdState;
       }
-    },
-    handleSubmit() {
-      if (!this.checkFormValidty()) {
-        console.log("handleSubmit");
-        return;
-      }
+
       //type 확인해서 맞는 함수 호출하기
       if (this.type === "register") {
         this.registUser();
-      } else {
+      } else if (this.pwdState) {
         this.modifyUser();
       }
     },
@@ -135,12 +134,11 @@ export default {
       this.$router.push("/user/signin");
     },
     modifyUser() {
-      console.log("modify");
-      //정보수정
       modify(
-        this.user, ///입력된거없으면 ㄴㄴㄴㄴㄴㄴ
+        this.user,
         ({ data }) => {
           if (data.message === "success") {
+            this.SET_USER_INFO(data.userInfo);
             //정상적으로 끝났다면 회원정보페이지로
             alert("정보 수정 완료");
             this.$router.push("/user/mypage");
