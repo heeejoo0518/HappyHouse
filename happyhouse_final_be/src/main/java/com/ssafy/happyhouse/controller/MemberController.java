@@ -195,4 +195,23 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	@GetMapping("/idcheck/{id}")
+	public ResponseEntity<Map<String, Object>> idCheck(@PathVariable("id") String userId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			if(memberService.userInfo(userId) == null) {
+				//해당 아이디를 사용한 객체가 없어야 가입가능
+				resultMap.put("message", SUCCESS);
+			}else {
+				resultMap.put("message",FAIL);
+			}
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 }

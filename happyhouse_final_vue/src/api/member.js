@@ -12,7 +12,7 @@ async function findById(userid, success, fail) {
 }
 
 function register(data, success, fail) {
-  api.post("/user/register", data).then(success).catch(fail);
+  api.post("/user/register", JSON.stringify(data)).then(success).catch(fail);
 }
 
 function modify(data, success, fail) {
@@ -30,4 +30,8 @@ async function checkUser(data, success, fail) {
   await api.post("/user/check", data).then(success).catch(fail);
 }
 
-export { login, findById, register, modify, deleteUser, checkUser };
+async function idCheck(id, success, fail) {
+  await api.get(`/user/idcheck/${id}`).then(success).catch(fail);
+}
+
+export { login, findById, register, modify, deleteUser, checkUser, idCheck };
