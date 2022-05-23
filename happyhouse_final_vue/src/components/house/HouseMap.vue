@@ -144,7 +144,7 @@ export default {
 
 <style scoped>
 #map {
-  width: 800px;
-  height: 400px;
+  width: 1000px;
+  height: 600px;
 }
 </style>
