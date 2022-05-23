@@ -3,7 +3,7 @@
 <template>
   <div>
     <div id="map"></div>
-    <house-detail ref="detailModal" />
+    <house-detail ref="detailModal" :staticMap="staticMap" />
   </div>
 </template>
 
@@ -21,13 +21,14 @@ export default {
     return {
       map: null,
       markers: [],
+      staticMap: null,
     };
   },
   created() {
     this.$emit("saveToggle", this.$route.name);
   },
   computed: {
-    ...mapState(houseStore, ["house", "houses"]),
+    ...mapState(houseStore, ["house", "houses", "hospitals"]),
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
@@ -44,7 +45,7 @@ export default {
       );
 
       let marker = null;
-      const ImgApt = require("@/assets/flat.png");
+      var ImgApt = require("@/assets/flat.png");
       this.houses.forEach((house, idx) => {
         marker = new kakao.maps.Marker({
           map: this.map,
@@ -90,6 +91,7 @@ export default {
         kakao.maps.event.addListener(marker, "click", function () {
           t.getHouseDetail(house.aptCode);
           t.$refs.detailModal.$refs.modal.show();
+          t.makeStaticMap(house, t.hospitals.response.body.items.item);
         });
       });
     },
@@ -117,6 +119,40 @@ export default {
       return function () {
         infowindow.close();
       };
+    },
+    makeStaticMap(house, hospitals) {
+      // 이미지 지도에서 마커가 표시될 위치입니다
+      var markerPosition = new kakao.maps.LatLng(house.lat, house.lng);
+
+      // 이미지 지도에 표시할 마커입니다
+      // 이미지 지도에 표시할 마커는 Object 형태입니다
+      var marker = [];
+
+      //클릭한 house 정보추가
+      marker.push({
+        position: markerPosition,
+      });
+
+      //클릭한 병원 정보 추가
+      hospitals.forEach((hospital) => {
+        marker.push({
+          position: new kakao.maps.LatLng(hospital.wgs84Lat, hospital.wgs84Lon),
+          text: `${hospital.dutyName}`,
+        });
+      });
+
+      var staticMapContainer = document.getElementById("staticMap"), // 이미지 지도를 표시할 div
+        staticMapOption = {
+          center: new kakao.maps.LatLng(house.lat, house.lng), // 이미지 지도의 중심좌표
+          level: 6, // 이미지 지도의 확대 레벨
+          marker: marker, // 이미지 지도에 표시할 마커
+        };
+
+      // 이미지 지도를 생성합니다
+      this.staticMap = new kakao.maps.StaticMap(
+        staticMapContainer,
+        staticMapOption,
+      );
     },
   },
   watch: {

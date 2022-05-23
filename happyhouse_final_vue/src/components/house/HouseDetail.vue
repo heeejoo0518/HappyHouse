@@ -8,6 +8,7 @@
   >
     <b-container fluid>
       {{ house.apartmentName }}
+      <div id="staticMap" style="width: 400px; height: 300px"></div>
     </b-container>
     <template #modal-footer>
       <div class="">
@@ -36,6 +37,9 @@ export default {
   name: "HouseDetail",
   data() {
     return {};
+  },
+  props: {
+    staticMap: Object,
   },
   computed: {
     ...mapState(houseStore, ["house"]),

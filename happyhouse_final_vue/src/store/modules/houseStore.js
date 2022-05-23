@@ -147,7 +147,6 @@ const houseStore = {
       hospitalList(
         params,
         ({ data }) => {
-          console.log(data);
           commit("SET_HOSPITAL_LIST", data);
         },
         (error) => {
