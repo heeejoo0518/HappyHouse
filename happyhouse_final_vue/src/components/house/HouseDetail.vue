@@ -116,8 +116,25 @@ export default {
       this.map.setCenter(new kakao.maps.LatLng(lat, lng));
     },
   },
-  updated() {
+  mounted() {
     /* global kakao */
+    //script 태그 객체생성
+    if (!window.kakao || !window.kakao.maps) {
+      const script = document.createElement("script");
+      //src 속성을 추가하며 .env.local에 등록한 서비스키 활용 동적로딩을 위해 autoload추가
+
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+      script.addEventListener("load", () => {
+        kakao.maps.load(this.initMap);
+      });
+      //document의 head에 script 추가
+      document.head.appendChild(script);
+    } else {
+      this.initMap();
+    }
+    this.makeMarkers();
+  },
+  updated() {
     //script 태그 객체생성
     if (!window.kakao || !window.kakao.maps) {
       const script = document.createElement("script");
