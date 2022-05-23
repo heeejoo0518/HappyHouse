@@ -1,36 +1,40 @@
 <template>
   <b-container class="mt-4" v-if="userInfo">
     <b-row>
-      <b-col></b-col>
+      <b-col cols="2"></b-col>
       <b-col cols="8">
-        <b-jumbotron>
+        <b-jumbotron bg-variant="white">
           <template #header>My Page</template>
           <hr class="my-4" />
           <b-container class="mt-4">
             <b-row>
               <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">아이디</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.userid }}</b-col>
+              <b-col cols="2" align-self="end" class="subject">아이디</b-col
+              ><b-col cols="4" align-self="start" class="item">{{
+                userInfo.userid
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이름</b-col
-              ><b-col cols="4" align-self="start">{{
+              <b-col cols="2" align-self="end" class="subject">이름</b-col
+              ><b-col cols="4" align-self="start" class="item">{{
                 userInfo.username
               }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이메일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.email }}</b-col>
+              <b-col cols="2" align-self="end" class="subject">이메일</b-col
+              ><b-col cols="4" align-self="start" class="item">{{
+                userInfo.email
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
               <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{
+              <b-col cols="2" align-self="end" class="subject">가입일</b-col
+              ><b-col cols="4" align-self="start" class="item">{{
                 userInfo.joindate
               }}</b-col>
               <b-col cols="2"></b-col>
@@ -38,11 +42,15 @@
           </b-container>
           <hr class="my-4" />
 
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
-          <b-button variant="danger" @click="openModal">회원탈퇴</b-button>
+          <b-button variant="outline-primary" href="/user/modify" class="mr-1"
+            >정보수정</b-button
+          >
+          <b-button variant="outline-danger" @click="openModal"
+            >회원탈퇴</b-button
+          >
         </b-jumbotron>
       </b-col>
-      <b-col></b-col>
+      <b-col cols="2"></b-col>
     </b-row>
     <member-delete ref="deleteModal" @deleteUser="deleteUser" />
   </b-container>

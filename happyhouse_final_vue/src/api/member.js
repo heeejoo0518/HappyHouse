@@ -25,9 +25,9 @@ function deleteUser(userid, success, fail) {
   api.delete(`/user/delete/${userid}`).then(success).catch(fail);
 }
 
-function checkUser(data, success, fail) {
+async function checkUser(data, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  api.post("/user/check", data).then(success).catch(fail);
+  await api.post("/user/check", data).then(success).catch(fail);
 }
 
 export { login, findById, register, modify, deleteUser, checkUser };

@@ -1,9 +1,11 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-steelblue">
+    <!--     <h3 class="underline-steelblue">
       <b-icon icon="person-lines-fill"></b-icon> Member Service
-    </h3>
-    <router-view></router-view>
+    </h3> -->
+    <b-row class="text-center" align-v="center">
+      <router-view></router-view>
+    </b-row>
   </b-container>
 </template>
 
