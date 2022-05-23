@@ -16,7 +16,10 @@ const houseStore = {
     guguns: [{ value: null, text: "선택하세요" }],
     dongs: [{ value: null, text: "선택하세요" }],
     houses: [],
-    house: null,
+    house: {
+      apartmentName: "",
+      aptCode: 0,
+    },
     hospitals: [],
   },
 
@@ -55,10 +58,16 @@ const houseStore = {
     },
     CLEAR_HOUSE_LIST: (state) => {
       state.houses = [];
-      state.house = null;
+      state.house = {
+        apartmentName: "",
+        aptCode: 0,
+      };
     },
     CLEAR_HOUSE: (state) => {
-      state.house = null;
+      state.house = {
+        apartmentName: "",
+        aptCode: 0,
+      };
     },
     CLEAR_HOSPITAL_LIST: (state) => {
       state.hospitals = [];

@@ -117,10 +117,11 @@ public class MemberController {
 
 	// 회원정보수정//modify
 	@PutMapping("/modify")
-	public ResponseEntity<Map<String, Object>>  modify(@RequestBody MemberDto memberDto, HttpServletRequest request) throws Exception {
+	public ResponseEntity<Map<String, Object>> modify(@RequestBody MemberDto memberDto, HttpServletRequest request)
+			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		
+
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			try {
@@ -138,13 +139,14 @@ public class MemberController {
 			resultMap.put("message", FAIL);
 			status = HttpStatus.ACCEPTED;
 		}
-		
+
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// 회원탈퇴//delete
 	@DeleteMapping("/delete/{userid}")
-	public ResponseEntity<Map<String, Object>>  delete(@PathVariable("userid") String id, HttpServletRequest request) throws Exception {
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable("userid") String id, HttpServletRequest request)
+			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
@@ -163,8 +165,34 @@ public class MemberController {
 			resultMap.put("message", FAIL);
 			status = HttpStatus.ACCEPTED;
 		}
-		
-		
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@PostMapping("/check")
+	public ResponseEntity<Map<String, Object>> checkUser(@RequestBody MemberDto memberDto, HttpServletRequest request) {
+		//memberService.login 사용하는데 토큰 체크 추가
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			logger.info("사용 가능한 토큰!!!");
+			try {
+				if (memberService.login(memberDto) != null) {
+					resultMap.put("message", SUCCESS);
+				} else {
+					resultMap.put("message", FAIL);
+				}
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				logger.error("불일치 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			logger.error("사용 불가능 토큰!!!");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
+		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }

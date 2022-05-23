@@ -14,5 +14,4 @@ public interface MemberService {
 
 	public int delete(String userid) throws Exception;
 
-
 }

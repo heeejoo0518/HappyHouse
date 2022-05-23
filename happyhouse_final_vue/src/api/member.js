@@ -11,6 +11,23 @@ async function findById(userid, success, fail) {
   await api.get(`/user/info/${userid}`).then(success).catch(fail);
 }
 
-// function logout(success, fail)
+function register(data, success, fail) {
+  api.post("/user/register", data).then(success).catch(fail);
+}
 
-export { login, findById };
+function modify(data, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  api.put("/user/modify", data).then(success).catch(fail);
+}
+
+function deleteUser(userid, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  api.delete(`/user/delete/${userid}`).then(success).catch(fail);
+}
+
+function checkUser(data, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  api.post("/user/check", data).then(success).catch(fail);
+}
+
+export { login, findById, register, modify, deleteUser, checkUser };

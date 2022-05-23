@@ -40,5 +40,4 @@
 		where userid = #{userid}
 	</delete>
 
-
 </mapper>

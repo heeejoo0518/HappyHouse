@@ -63,7 +63,7 @@ export default {
         this.markers.push(marker);
         var infowindow = new kakao.maps.InfoWindow({
           position: new kakao.maps.LatLng(house.lat, house.lng),
-          content: `<div style="width:200px;     
+          content: `<div style="width:200px;
           display: block;
           background: #50627F;
           color: #fff;
