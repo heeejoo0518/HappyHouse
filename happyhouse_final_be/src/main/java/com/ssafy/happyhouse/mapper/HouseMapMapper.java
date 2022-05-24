@@ -13,5 +13,6 @@ public interface HouseMapMapper {
 	List<SidoGugunCodeDto> getGugunInSido(String sido) throws SQLException;
 	List<HouseInfoDto> getDongInGugun(SidoGugunCodeDto sidoGugunCodeDto) throws SQLException;
 	List<HouseInfoDto> getApts(Map<String,Object> map) throws SQLException;
-	HouseInfoDto getAptWithDeal(long aptCode) throws SQLException;
+	HouseInfoDto getAptWithDeal(long aptCode,String userid) throws SQLException;
+	int getTotalCount(Map<String,String> map) throws SQLException;
 }

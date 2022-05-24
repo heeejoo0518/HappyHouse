@@ -123,7 +123,7 @@ const houseStore = {
       houseList(
         sidogugun,
         ({ data }) => {
-          commit("SET_HOUSE_LIST", data);
+          commit("SET_HOUSE_LIST", data.houses);
         },
         (error) => {
           console.log(error);

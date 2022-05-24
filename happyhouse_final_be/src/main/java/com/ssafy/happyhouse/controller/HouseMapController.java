@@ -1,7 +1,10 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.transform.Result;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,15 +51,26 @@ public class HouseMapController {
 	}
 
 	@PostMapping("/apt")
-	public ResponseEntity<List<HouseInfoDto>> getApts(@RequestBody Map<String, Object> map) throws Exception {
+	public ResponseEntity<Map<String, Object>> getApts(@RequestBody Map<String, String> map) throws Exception {
 		logger.debug("getApt");
-		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getApts(map), HttpStatus.OK);
+		Map<String, Object> resultMap = new HashMap<>();
+
+		if (map.get("pg") != null) {
+//			String spp = map.get("spp");
+//			map.put("spp", spp != null ? spp : "9");
+			resultMap.put("navigation", houseMapService.makePageNavigation(map));
+		}
+		resultMap.putAll(map);
+		resultMap.put("houses", houseMapService.getApts(resultMap));
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
-	@GetMapping("/apt/{aptCode}")
-	public ResponseEntity<HouseInfoDto> getAptWithDeal(@PathVariable("aptCode") long aptCode) throws Exception {
+	@GetMapping("/apt/{aptCode}/{userid}")
+	public ResponseEntity<HouseInfoDto> getAptWithDeal(@PathVariable("aptCode") long aptCode,
+			@PathVariable(value = "userid", required = false) String userid) throws Exception {
 		logger.debug("getAptWithDeal");
-		return new ResponseEntity<HouseInfoDto>(houseMapService.getAptWithDeal(aptCode), HttpStatus.OK);
+		return new ResponseEntity<HouseInfoDto>(houseMapService.getAptWithDeal(aptCode,userid), HttpStatus.OK);
 	}
 
 }

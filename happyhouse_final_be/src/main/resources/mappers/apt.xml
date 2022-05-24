@@ -34,13 +34,34 @@
 		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
 		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
 		<if test="aptName != null and aptName != ''">and i.apartmentName like concat('%',#{aptName},'%')</if>
+		<if test="start != null">limit #{start}, #{spp}</if>
+	</select>
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(i.aptCode) 
+		from houseinfo i
+		inner join dongcode d
+		on d.dongCode = i.dongCode
+		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
+		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
+		<if test="aptName != null and aptName != ''">and i.apartmentName like concat('%',#{aptName},'%')</if>
 	</select>
 	
 	<!-- 아파트 상세조회 -->
-	<select id="getAptWithDeal" parameterType="Long" resultMap="AptList">
-		select i.*
+	<select id="getAptWithDeal" parameterType="map" resultMap="AptList">
+		select 
+		<if test="userid != null and userid != ''">
+		(case 
+		when (select count(*)
+				from likeapt
+				where aptCode =#{aptCode}  and userid=#{userid})
+			= 1 then 'Y'
+		else 'N'
+		end) 'check',
+		</if>
+		i.*
 		from houseinfo i
-		where aptCode = #{aptCode}
+		where aptCode = '11110000000001';
 	</select>
 	
 	<!-- 거래목록조회 -->
@@ -53,6 +74,7 @@
 
 	<!-- 아파트 resultMap -->
 	<resultMap type="HouseInfoDto" id="AptList">
+		<result column="check" property="check" />
 		<result column="aptCode" property="aptCode" />
 		<result column="buildYear" property="buildYear" />
 		<result column="roadName" property="roadName" />

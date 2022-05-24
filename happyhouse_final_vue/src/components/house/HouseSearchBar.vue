@@ -6,6 +6,7 @@
       <b-row v-show="!likeapt">
         <b-col class="sm-3">
           <b-form-select
+            ref="sido"
             v-model="sidoName"
             :options="sidos"
             @change="gugunList"
@@ -13,6 +14,7 @@
         </b-col>
         <b-col class="sm-3">
           <b-form-select
+            ref="gugun"
             v-model="gugunName"
             :options="guguns"
             @change="duplicateSearch"
@@ -20,6 +22,7 @@
         </b-col>
         <b-col class="sm-3">
           <b-form-select
+            ref="dong"
             v-model="dongName"
             :options="dongs"
             @change="searchApt"
@@ -51,6 +54,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+// import { houseList } from "@/api/house.js";
 
 const houseStore = "houseStore";
 const memberStore = "memberStore";
@@ -64,6 +68,8 @@ export default {
       aptName: null,
       likeapt: false,
       userid: null,
+      pg: 1,
+      spp: 12,
     };
   },
   computed: {
@@ -126,8 +132,9 @@ export default {
         gugunName: this.gugunName,
         dongName: this.dongName,
         aptName: this.aptName,
+        pg: this.pg,
+        spp: this.spp,
       };
-
       this.getHouseList(data);
     },
     toggleView() {
@@ -152,6 +159,8 @@ export default {
         this.searchApt();
       } else {
         this.CLEAR_HOUSE_LIST();
+        this.getHouseList();
+        this.hospitalList();
         this.getLikeAptsList(this.userInfo.userid);
       }
     },

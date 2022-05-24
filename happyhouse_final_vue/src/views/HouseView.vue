@@ -7,7 +7,7 @@
     </h3>
     <b-row>
       <b-col>
-        <house-search-bar @toggle="toggleView"></house-search-bar>
+        <house-search-bar ref="sb" @toggle="toggleView"></house-search-bar>
       </b-col>
     </b-row>
     <b-row>
@@ -31,9 +31,12 @@ export default {
     toggleView() {
       switch (this.toggle) {
         case "houseList":
+          //전체아파트 가져오기
+          console.log(this.$refs.sb.$refs.sido.value);
           this.toggle = "houseMap";
           break;
         case "houseMap":
+          //페이징 가져오기
           this.toggle = "houseList";
           break;
       }

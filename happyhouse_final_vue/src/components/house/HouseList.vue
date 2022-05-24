@@ -37,14 +37,16 @@ export default {
   },
   data() {
     return {
-      limit: 0,
+      perPage: 9,
+      currentPage: 1,
+      rows: 1,
     };
   },
   created() {
     this.$emit("saveToggle", this.$route.name);
   },
   computed: {
-    ...mapState(houseStore, ["houses", "house"]),
+    ...mapState(houseStore, ["houses"]), //, "house"]),
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),

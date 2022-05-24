@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel(value = "HouseInfoDto (아파트정보)", description = "아파트 정보, 거래목록, 최소거래액, 최대거래액 가진 Domain Class")
 public class HouseInfoDto {
+	@ApiModelProperty(value = "관심아파트여부")
+	private String check;
 	@ApiModelProperty(value = "아파트코드")
 	private long aptCode;
 	@ApiModelProperty(value = "건축년도")
