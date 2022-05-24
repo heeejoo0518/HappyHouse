@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar toggleable="lg" type="" variant="">
       <b-navbar-brand href="#">
         <router-link to="/">
           <img
-            src="@/assets/ssafy_logo.png"
+            src="@/assets/logo.png"
             class="d-inline-block align-middle"
             width="100px"
             alt="ssafy"
@@ -17,10 +17,12 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'home' }" class="link"
-              ><b-icon icon="house" font-scale="1.5"></b-icon> 홈</router-link
+            ><router-link :to="{ name: 'house' }" class="link"
+              ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
+              아파트정보</router-link
             ></b-nav-item
           >
+
           <b-nav-item href="#"
             ><router-link :to="{ name: 'board' }" class="link"
               ><b-icon icon="journal" font-scale="1.5"></b-icon>
@@ -33,12 +35,7 @@
               공연정보</router-link
             ></b-nav-item
           >
-          <b-nav-item href="#"
-            ><router-link :to="{ name: 'house' }" class="link"
-              ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
-              아파트정보</router-link
-            ></b-nav-item
-          >
+
           <b-nav-item href="#"
             ><router-link :to="{ name: 'todo' }" class="link"
               ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
