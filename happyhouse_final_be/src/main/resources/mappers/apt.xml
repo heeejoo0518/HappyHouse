@@ -61,7 +61,7 @@
 		</if>
 		i.*
 		from houseinfo i
-		where aptCode = '11110000000001';
+		where aptCode =#{aptCode};
 	</select>
 	
 	<!-- 거래목록조회 -->

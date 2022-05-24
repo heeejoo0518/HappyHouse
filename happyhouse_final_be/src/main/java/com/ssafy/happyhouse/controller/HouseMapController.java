@@ -54,10 +54,10 @@ public class HouseMapController {
 	public ResponseEntity<Map<String, Object>> getApts(@RequestBody Map<String, String> map) throws Exception {
 		logger.debug("getApt");
 		Map<String, Object> resultMap = new HashMap<>();
+		String spp = map.get("spp");
+		map.put("spp", spp != null ? spp : "9");
 
 		if (map.get("pg") != null) {
-//			String spp = map.get("spp");
-//			map.put("spp", spp != null ? spp : "9");
 			resultMap.put("navigation", houseMapService.makePageNavigation(map));
 		}
 		resultMap.putAll(map);

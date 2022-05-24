@@ -154,10 +154,12 @@ export default {
 
     likeAptsList() {
       if (!this.likeapt) {
+        //false --> 리스트
         this.searchApt();
       } else {
+        //관심지역
         this.CLEAR_HOUSE_LIST();
-        this.getHouseList();
+        // this.searchApt();
         this.hospitalList();
         this.getLikeAptsList(this.userInfo.userid);
       }
