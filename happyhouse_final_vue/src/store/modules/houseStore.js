@@ -90,7 +90,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     getGugun: ({ commit }, sidoName) => {
@@ -104,7 +104,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
 
@@ -116,7 +116,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     getHouseList: ({ commit }, sidogugun) => {
@@ -127,7 +127,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
 
@@ -139,7 +139,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
     getHospitalList: ({ commit }, sidogugun) => {
@@ -156,7 +156,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
 
@@ -168,7 +168,7 @@ const houseStore = {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     },
   },

@@ -17,28 +17,23 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'house' }" class="link"
-              ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
+            ><router-link :to="{ name: 'house' }" class="link">
               아파트정보</router-link
             ></b-nav-item
           >
-
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'board' }" class="link"
-              ><b-icon icon="journal" font-scale="1.5"></b-icon>
+            ><router-link :to="{ name: 'board' }" class="link">
               게시판</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'ticket' }" class="link"
-              ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
+            ><router-link :to="{ name: 'ticket' }" class="link">
               공연정보</router-link
             ></b-nav-item
           >
 
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'todo' }" class="link"
-              ><b-icon icon="calendar-check" font-scale="1.5"></b-icon>
+            ><router-link :to="{ name: 'todo' }" class="link">
               TodoList</router-link
             ></b-nav-item
           >
@@ -111,4 +106,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+a {
+  text-decoration: none !important;
+  font-size: 1.1rem;
+  color: black;
+}
+a:hover {
+  color: black !important;
+  text-decoration: none !important;
+}
+a.link {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+a[role="button"] {
+  color: black !important;
+}
+.dropdown-menu {
+  background-color: #e9ecef;
+}
+</style>

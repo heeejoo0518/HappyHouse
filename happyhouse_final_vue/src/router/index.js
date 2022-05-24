@@ -16,11 +16,9 @@ const onlyAuthUser = async (to, from, next) => {
     await getUserInfo(token);
   }
   if (checkUserInfo === null) {
-    alert("로그인이 필요한 페이지입니다..");
+    alert("로그인이 필요한 페이지입니다.");
     next({ name: "signin" });
-    // router.push({ name: "signIn" });
   } else {
-    // console.log("로그인 했다.");
     next();
   }
 };
@@ -85,7 +83,6 @@ const routes = [
       {
         path: "detail/:articleno",
         name: "boardDetail",
-        beforeEnter: onlyAuthUser,
         component: () => import("@/components/board/BoardDetail.vue"),
       },
       {
@@ -104,7 +101,6 @@ const routes = [
   {
     path: "/house",
     name: "house",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/views/HouseView.vue"),
     redirect: "/house/list",
     children: [

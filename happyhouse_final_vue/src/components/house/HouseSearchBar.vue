@@ -44,6 +44,7 @@
     </b-col>
     <b-col class="sm-3" align="left">
       <b-button
+        v-if="userInfo != null"
         :pressed.sync="likeapt"
         variant="outline-warning"
         @click="likeAptsList"
