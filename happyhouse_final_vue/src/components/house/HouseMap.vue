@@ -10,6 +10,7 @@
 import { mapState, mapActions } from "vuex";
 import HouseDetail from "./HouseDetail.vue";
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   components: { HouseDetail },
@@ -24,7 +25,8 @@ export default {
     this.$emit("saveToggle", this.$route.name);
   },
   computed: {
-    ...mapState(houseStore, ["house", "houses"]),
+    ...mapState(houseStore, ["house", "houses", "hospitals"]),
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
@@ -85,7 +87,11 @@ export default {
         );
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
-          t.getHouseDetail(house.aptCode);
+          console.log(t.userInfo.userid);
+          t.getHouseDetail({
+            userid: t.userInfo.userid,
+            aptCode: house.aptCode,
+          });
           t.$refs.detailModal.$refs.modal.show();
         });
       });
