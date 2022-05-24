@@ -15,7 +15,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <router-view :spp="spp" @search="searchApt" @saveToggle="currentPage" />
+      <router-view @search="searchApt" @saveToggle="currentPage" />
     </b-row>
   </b-container>
 </template>
@@ -30,8 +30,6 @@ export default {
   data() {
     return {
       toggle: "",
-      pg: 0,
-      spp: 12,
     };
   },
   components: {
@@ -45,11 +43,9 @@ export default {
     toggleView() {
       switch (this.toggle) {
         case "houseList":
-          this.searchApt();
           this.toggle = "houseMap";
           break;
         case "houseMap":
-          this.searchApt(this.pg, this.spp);
           this.toggle = "houseList";
           break;
       }
@@ -58,17 +54,13 @@ export default {
     currentPage(pgName) {
       this.toggle = pgName;
     },
-    searchApt(pg, spp) {
-      this.pg += 1;
+    searchApt() {
       let data = {
         sidoName: this.$refs.sb.$refs.sido.value,
         gugunName: this.$refs.sb.$refs.gugun.value,
         dongName: this.$refs.sb.$refs.dong.value,
         aptName: this.$refs.sb.$refs.aptname.value,
-        spp: spp,
       };
-      if (pg == -1) data.pg = this.pg;
-      else if (pg != null) data.pg = pg;
       this.getHouseList(data);
     },
   },

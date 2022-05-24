@@ -22,7 +22,6 @@ const houseStore = {
       aptCode: 0,
     },
     hospitals: [],
-    navigation: null,
   },
 
   getters: {},
@@ -54,9 +53,6 @@ const houseStore = {
     },
     SET_HOUSE_LIST: (state, houses) => {
       state.houses = houses;
-    },
-    SET_NAVIGATION: (state, navigation) => {
-      state.navigation = navigation;
     },
     SET_DETAIL_HOUSE: (state, house) => {
       state.house = house;
@@ -127,8 +123,8 @@ const houseStore = {
       houseList(
         sidogugun,
         ({ data }) => {
-          commit("SET_HOUSE_LIST", data.houses);
-          commit("SET_NAVIGATION", data.navigation);
+          console.log(data);
+          commit("SET_HOUSE_LIST", data);
         },
         (error) => {
           console.log(error);

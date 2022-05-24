@@ -51,19 +51,10 @@ public class HouseMapController {
 	}
 
 	@PostMapping("/apt")
-	public ResponseEntity<Map<String, Object>> getApts(@RequestBody Map<String, String> map) throws Exception {
+	public ResponseEntity<List<HouseInfoDto>> getApts(@RequestBody Map<String, Object> map) throws Exception {
 		logger.debug("getApt");
-		Map<String, Object> resultMap = new HashMap<>();
-		String spp = map.get("spp");
-		map.put("spp", spp != null ? spp : "12");
+		return new ResponseEntity<List<HouseInfoDto>>(houseMapService.getApts(map), HttpStatus.OK);
 
-		if (map.get("pg") != null) {
-			resultMap.put("navigation", houseMapService.makePageNavigation(map));
-		}
-		resultMap.putAll(map);
-		resultMap.put("houses", houseMapService.getApts(resultMap));
-
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
 	@GetMapping("/apt/{aptCode}/{userid}")

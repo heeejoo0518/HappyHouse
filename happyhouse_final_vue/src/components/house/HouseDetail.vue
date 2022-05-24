@@ -74,7 +74,6 @@ export default {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
-          location.reload();
         },
         (error) => {
           console.log(error);
@@ -91,7 +90,6 @@ export default {
             msg = "삭제가 완료되었습니다.";
           }
           alert(msg);
-          location.reload();
         },
         (error) => {
           console.log(error);

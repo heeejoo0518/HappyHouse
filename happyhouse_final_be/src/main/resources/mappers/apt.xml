@@ -34,7 +34,6 @@
 		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
 		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
 		<if test="aptName != null and aptName != ''">and i.apartmentName like concat('%',#{aptName},'%')</if>
-		<if test="start != null">limit #{start}, #{spp}</if>
 	</select>
 	
 	<select id="getTotalCount" parameterType="map" resultType="int">

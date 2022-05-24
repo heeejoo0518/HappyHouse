@@ -34,11 +34,6 @@ public class HouseMapServiceImpl implements HouseMapService {
 
 	@Override
 	public List<HouseInfoDto> getApts(Map<String,Object> map) throws Exception {
-		int currentPage = Integer.parseInt((String)map.get("pg") == null ? "1" : (String)map.get("pg"));
-		int sizePerPage = Integer.parseInt((String)map.get("spp"));
-		int start = (currentPage - 1) * sizePerPage;
-		map.put("start", start);
-		map.put("spp", sizePerPage);
 		return houseMapMapper.getApts(map);
 	}
 	

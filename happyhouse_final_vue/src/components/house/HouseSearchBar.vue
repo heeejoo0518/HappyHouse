@@ -126,7 +126,13 @@ export default {
       }
     },
     searchApt() {
-      this.$emit("search");
+      let data = {
+        sidoName: this.sidoName,
+        gugunName: this.gugunName,
+        dongName: this.dongName,
+        aptName: this.aptName,
+      };
+      this.getHouseList(data);
     },
     toggleView() {
       this.$emit("toggle");
