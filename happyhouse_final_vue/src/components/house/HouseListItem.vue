@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
+const memberStore = "memberStore";
 const houseStore = "houseStore";
 
 export default {
@@ -32,14 +33,20 @@ export default {
       isColor: false,
     };
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   props: {
     house: Object,
   },
+
   methods: {
     ...mapActions(houseStore, ["getHouseDetail"]),
     selectHouse(aptCode) {
       this.$emit("openModal");
-      this.getHouseDetail(aptCode);
+      if (this.userInfo != null)
+        this.getHouseDetail(aptCode, this.userInfo.userid);
+      else this.getHouseDetail(aptCode, null);
     },
     colorChange(flag) {
       this.isColor = flag;

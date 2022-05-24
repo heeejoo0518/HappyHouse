@@ -20,8 +20,8 @@ function houseList(data, success, fail) {
   api.post(`/map/apt`, data).then(success).catch(fail);
 }
 
-function houseDetail(aptCode, success, fail) {
-  api.get(`/map/apt/${aptCode}`).then(success).catch(fail);
+function houseDetail(aptCode, userid, success, fail) {
+  api.get(`/map/apt/${aptCode}/${userid}`).then(success).catch(fail);
 }
 
 function addLikeApt(data, success, fail) {

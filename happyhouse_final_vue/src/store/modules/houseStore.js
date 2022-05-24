@@ -123,7 +123,7 @@ const houseStore = {
       houseList(
         sidogugun,
         ({ data }) => {
-          commit("SET_HOUSE_LIST", data.houses);
+          commit("SET_HOUSE_LIST", data);
         },
         (error) => {
           console.log(error);
@@ -131,9 +131,10 @@ const houseStore = {
       );
     },
 
-    getHouseDetail: ({ commit }, aptCode) => {
+    getHouseDetail: ({ commit }, aptCode, userid) => {
       houseDetail(
         aptCode,
+        userid,
         ({ data }) => {
           commit("SET_DETAIL_HOUSE", data);
         },

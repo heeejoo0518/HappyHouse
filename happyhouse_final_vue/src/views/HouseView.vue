@@ -16,6 +16,8 @@
   </b-container>
 </template>
 <script>
+const memberStore = "memberStore";
+import { mapState } from "vuex";
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 export default {
   name: "HouseView",
@@ -26,6 +28,9 @@ export default {
   },
   components: {
     HouseSearchBar,
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
     toggleView() {
