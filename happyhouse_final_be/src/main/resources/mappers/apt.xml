@@ -50,11 +50,11 @@
 	<!-- 아파트 상세조회 -->
 	<select id="getAptWithDeal" parameterType="map" resultMap="AptList">
 		select 
-		<if test="userid != null and userid != ''">
+		<if test="userid != null and userid != '' and userid!='null'">
 		(case 
 		when (select count(*)
 				from likeapt
-				where aptCode =#{aptCode}  and userid=#{userid})
+				where aptCode =#{aptCode} and userid=#{userid})
 			= 1 then 'Y'
 		else 'N'
 		end) 'check',
