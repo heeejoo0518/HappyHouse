@@ -9,8 +9,6 @@
       <b-col>
         <house-search-bar
           ref="sb"
-          :pg="pg"
-          :spp="spp"
           @movepg="movePage"
           @search="searchApt"
           @toggle="toggleView"
@@ -49,12 +47,10 @@ export default {
     toggleView() {
       switch (this.toggle) {
         case "houseList":
-          //전체아파트 가져오기
           this.searchApt();
           this.toggle = "houseMap";
           break;
         case "houseMap":
-          //페이징 가져오기-다시 첫페이지부터
           this.searchApt(this.pg, this.spp);
           this.toggle = "houseList";
           break;
@@ -75,8 +71,10 @@ export default {
       };
       this.getHouseList(data);
     },
-    movePage(pg) {
-      this.pg = pg;
+    movePage() {
+      // this.pg = this.pg + 1;
+      this.spp += 12;
+      this.searchApt(this.pg, this.spp);
     },
   },
 };

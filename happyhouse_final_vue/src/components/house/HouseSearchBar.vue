@@ -71,10 +71,6 @@ export default {
       userid: null,
     };
   },
-  props: {
-    pg: Number,
-    spp: Number,
-  },
   computed: {
     ...mapState(houseStore, [
       "sidos",
@@ -135,10 +131,6 @@ export default {
     toggleView() {
       this.$emit("toggle");
     },
-    nextPage() {
-      this.$emit("movepg", this.pg + 1);
-    },
-
     hospitalList() {
       this.CLEAR_HOSPITAL_LIST();
       let data = {

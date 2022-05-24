@@ -11,6 +11,7 @@
           @openModal="openModal"
           style="margin-bottom: 3rem" /></b-card-group
     ></b-row>
+    <b-button @click="movePg">더보기</b-button>
     <!-- <infinite-loading @infinite="InfiniteHandler" spinner=""></infinite-loading> -->
     <house-detail ref="detailModal" />
   </b-container>
@@ -36,11 +37,11 @@ export default {
     HouseDetail,
   },
   data() {
-    return {
-      perPage: 9,
-      currentPage: 1,
-      rows: 1,
-    };
+    return {};
+  },
+  props: {
+    pg: Number,
+    spp: Number,
   },
   created() {
     this.$emit("saveToggle", this.$route.name);
@@ -56,6 +57,9 @@ export default {
     // infiniteHandler($state) {
     //   console.log($state);
     // },
+    movePg() {
+      this.$emit("movepg");
+    },
   },
 };
 </script>

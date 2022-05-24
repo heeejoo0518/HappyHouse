@@ -55,7 +55,7 @@ public class HouseMapController {
 		logger.debug("getApt");
 		Map<String, Object> resultMap = new HashMap<>();
 		String spp = map.get("spp");
-		map.put("spp", spp != null ? spp : "9");
+		map.put("spp", spp != null ? spp : "12");
 
 		if (map.get("pg") != null) {
 			resultMap.put("navigation", houseMapService.makePageNavigation(map));
