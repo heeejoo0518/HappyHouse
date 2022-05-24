@@ -136,10 +136,9 @@ const houseStore = {
       );
     },
 
-    getHouseDetail: ({ commit }, aptCode, userid) => {
+    getHouseDetail: ({ commit }, params) => {
       houseDetail(
-        aptCode,
-        userid,
+        params,
         ({ data }) => {
           commit("SET_DETAIL_HOUSE", data);
         },

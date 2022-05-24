@@ -44,9 +44,11 @@ export default {
     ...mapActions(houseStore, ["getHouseDetail"]),
     selectHouse(aptCode) {
       this.$emit("openModal");
-      if (this.userInfo != null)
-        this.getHouseDetail(aptCode, this.userInfo.userid);
-      else this.getHouseDetail(aptCode, null);
+      if (this.userInfo != null) {
+        this.getHouseDetail({ aptCode, userid: this.userInfo.userid });
+      } else {
+        this.getHouseDetail({ aptCode, userid: null });
+      }
     },
     colorChange(flag) {
       this.isColor = flag;
