@@ -30,6 +30,7 @@
         </b-col>
         <b-col class="sm-3">
           <b-form-input
+            ref="aptname"
             type="search"
             v-model.lazy.trim="aptName"
             placeholder="아파트 이름 입력"
@@ -68,9 +69,11 @@ export default {
       aptName: null,
       likeapt: false,
       userid: null,
-      pg: 1,
-      spp: 12,
     };
+  },
+  props: {
+    pg: Number,
+    spp: Number,
   },
   computed: {
     ...mapState(houseStore, [
@@ -127,18 +130,13 @@ export default {
       }
     },
     searchApt() {
-      let data = {
-        sidoName: this.sidoName,
-        gugunName: this.gugunName,
-        dongName: this.dongName,
-        aptName: this.aptName,
-        pg: this.pg,
-        spp: this.spp,
-      };
-      this.getHouseList(data);
+      this.$emit("search");
     },
     toggleView() {
       this.$emit("toggle");
+    },
+    nextPage() {
+      this.$emit("movepg", this.pg + 1);
     },
 
     hospitalList() {

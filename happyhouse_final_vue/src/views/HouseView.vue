@@ -7,7 +7,14 @@
     </h3>
     <b-row>
       <b-col>
-        <house-search-bar ref="sb" @toggle="toggleView"></house-search-bar>
+        <house-search-bar
+          ref="sb"
+          :pg="pg"
+          :spp="spp"
+          @movepg="movePage"
+          @search="searchApt"
+          @toggle="toggleView"
+        ></house-search-bar>
       </b-col>
     </b-row>
     <b-row>
@@ -19,11 +26,16 @@
 const memberStore = "memberStore";
 import { mapState } from "vuex";
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
+import { mapActions } from "vuex";
+
 export default {
   name: "HouseView",
   data() {
     return {
       toggle: "",
+      pg: 1,
+      spp: 12,
+      navigation: null,
     };
   },
   components: {
@@ -33,15 +45,17 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
+    ...mapActions("houseStore", ["getHouseList"]),
     toggleView() {
       switch (this.toggle) {
         case "houseList":
           //전체아파트 가져오기
-          console.log(this.$refs.sb.$refs.sido.value);
+          this.searchApt();
           this.toggle = "houseMap";
           break;
         case "houseMap":
-          //페이징 가져오기
+          //페이징 가져오기-다시 첫페이지부터
+          this.searchApt(this.pg, this.spp);
           this.toggle = "houseList";
           break;
       }
@@ -49,6 +63,20 @@ export default {
     },
     currentPage(pgName) {
       this.toggle = pgName;
+    },
+    searchApt(pg, spp) {
+      let data = {
+        sidoName: this.$refs.sb.$refs.sido.value,
+        gugunName: this.$refs.sb.$refs.gugun.value,
+        dongName: this.$refs.sb.$refs.dong.value,
+        aptName: this.$refs.sb.$refs.aptname.value,
+        pg,
+        spp,
+      };
+      this.getHouseList(data);
+    },
+    movePage(pg) {
+      this.pg = pg;
     },
   },
 };
