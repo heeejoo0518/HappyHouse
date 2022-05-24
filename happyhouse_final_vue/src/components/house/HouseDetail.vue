@@ -175,7 +175,6 @@ export default {
     calculation() {
       //현재 아파트 위치에서 가장 가까운 병원 저장(거리계산 알고리즘)
       var min = Number.MAX_VALUE;
-      console.log(min);
       var i = -1;
       this.hospitals.response.body.items.item.forEach((hospital, index) => {
         var x = parseFloat(hospital.wgs84Lat) - parseFloat(this.house.lat);

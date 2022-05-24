@@ -2,37 +2,49 @@
 
 <template>
   <b-row class="mt-4 mb-4 text-center">
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="sidoName"
-        :options="sidos"
-        @change="gugunList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="gugunName"
-        :options="guguns"
-        @change="duplicateSearch"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="dongName"
-        :options="dongs"
-        @change="searchApt"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-input
-        type="search"
-        v-model.lazy.trim="aptName"
-        placeholder="아파트 이름 입력"
-      ></b-form-input>
+    <b-col cols="10">
+      <b-row v-show="!likeapt">
+        <b-col class="sm-3">
+          <b-form-select
+            v-model="sidoName"
+            :options="sidos"
+            @change="gugunList"
+          ></b-form-select>
+        </b-col>
+        <b-col class="sm-3">
+          <b-form-select
+            v-model="gugunName"
+            :options="guguns"
+            @change="duplicateSearch"
+          ></b-form-select>
+        </b-col>
+        <b-col class="sm-3">
+          <b-form-select
+            v-model="dongName"
+            :options="dongs"
+            @change="searchApt"
+          ></b-form-select>
+        </b-col>
+        <b-col class="sm-3">
+          <b-form-input
+            type="search"
+            v-model.lazy.trim="aptName"
+            placeholder="아파트 이름 입력"
+          ></b-form-input>
+        </b-col>
+        <b-col class="sm-3" align="left">
+          <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
+          <toggle-button @change="toggleView"></toggle-button>
+        </b-col>
+      </b-row>
     </b-col>
     <b-col class="sm-3" align="left">
-      <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
-      <toggle-button @change="toggleView"></toggle-button>
+      <b-button
+        :pressed.sync="likeapt"
+        variant="outline-warning"
+        @click="likeAptsList"
+        >관심지역</b-button
+      >
     </b-col>
   </b-row>
 </template>
@@ -41,7 +53,7 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 
 const houseStore = "houseStore";
-
+const memberStore = "memberStore";
 export default {
   name: "HouseSearchBar",
   data() {
@@ -50,6 +62,8 @@ export default {
       gugunName: null,
       dongName: null,
       aptName: null,
+      likeapt: false,
+      userid: null,
     };
   },
   computed: {
@@ -60,6 +74,7 @@ export default {
       "houses",
       "hospitals",
     ]),
+    ...mapState(memberStore, ["userInfo"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
@@ -80,6 +95,7 @@ export default {
       "getDong",
       "getHouseList",
       "getHospitalList",
+      "getLikeAptsList",
     ]),
     ...mapMutations(houseStore, [
       "CLEAR_SIDO_LIST",
@@ -129,6 +145,15 @@ export default {
     duplicateSearch() {
       this.dongList();
       this.hospitalList();
+    },
+
+    likeAptsList() {
+      if (!this.likeapt) {
+        this.searchApt();
+      } else {
+        this.CLEAR_HOUSE_LIST();
+        this.getLikeAptsList(this.userInfo.userid);
+      }
     },
   },
 };

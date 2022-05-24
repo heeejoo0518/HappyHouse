@@ -7,6 +7,7 @@ import {
   houseList,
   houseDetail,
   hospitalList,
+  getLikeApts,
 } from "@/api/house.js";
 
 const houseStore = {
@@ -74,6 +75,10 @@ const houseStore = {
     },
     SET_HOSPITAL_LIST: (state, hospitals) => {
       state.hospitals = hospitals;
+    },
+
+    SET_LIKE_APTS_LIST: (state, houses) => {
+      state.houses = houses.aptList;
     },
   },
 
@@ -148,6 +153,18 @@ const houseStore = {
         params,
         ({ data }) => {
           commit("SET_HOSPITAL_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
+
+    getLikeAptsList: ({ commit }, userid) => {
+      getLikeApts(
+        userid,
+        ({ data }) => {
+          commit("SET_LIKE_APTS_LIST", data);
         },
         (error) => {
           console.log(error);
