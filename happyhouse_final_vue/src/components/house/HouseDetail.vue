@@ -19,7 +19,15 @@
           class="float-right"
           @click="addApt"
         >
-          관심지역으로 추가
+          관심지역 추가
+        </b-button>
+        <b-button
+          variant="danger"
+          size="sm"
+          class="float-right"
+          @click="deleteApt"
+        >
+          관심지역 취소
         </b-button>
       </div>
     </template>
@@ -63,6 +71,8 @@ export default {
         },
       );
     },
+
+    deleteApt() {},
 
     makeMarkers() {
       this.markers = [];
