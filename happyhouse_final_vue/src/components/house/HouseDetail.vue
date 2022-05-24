@@ -7,17 +7,18 @@
     @hidden="CLEAR_HOUSE"
   >
     <b-container fluid>
-      {{ house.apartmentName }}
       <div id="newMap" style="width: 400px; height: 300px"></div>
     </b-container>
     <template #modal-footer>
       <div class="">
         <p class="float-left"></p>
+
         <b-button
           variant="primary"
           size="sm"
           class="float-right"
           @click="addApt"
+          v-if="!check()"
         >
           관심지역 추가
         </b-button>
@@ -26,6 +27,7 @@
           size="sm"
           class="float-right"
           @click="deleteApt"
+          v-if="check()"
         >
           관심지역 취소
         </b-button>
@@ -36,7 +38,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import { addLikeApt } from "@/api/house";
+import { addLikeApt, deleteLikeApt } from "@/api/house";
 
 const houseStore = "houseStore";
 const memberStore = "memberStore";
@@ -56,6 +58,13 @@ export default {
   methods: {
     ...mapMutations(houseStore, ["CLEAR_HOUSE"]),
     ...mapActions(houseStore, ["getHouseDetail", "getHospitalList"]),
+    check() {
+      if (this.house.check == "Y") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     addApt() {
       addLikeApt(
         { userid: this.userInfo.userid, aptCode: this.house.aptCode },
@@ -65,6 +74,7 @@ export default {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
+          location.reload();
         },
         (error) => {
           console.log(error);
@@ -72,7 +82,22 @@ export default {
       );
     },
 
-    deleteApt() {},
+    deleteApt() {
+      deleteLikeApt(
+        { userid: this.userInfo.userid, aptCode: this.house.aptCode },
+        ({ data }) => {
+          let msg = "삭제 처리시 문제가 발생했습니다.";
+          if (data.message === "success") {
+            msg = "삭제가 완료되었습니다.";
+          }
+          alert(msg);
+          location.reload();
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    },
 
     makeMarkers() {
       this.markers = [];
