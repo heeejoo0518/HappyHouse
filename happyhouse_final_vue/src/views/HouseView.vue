@@ -9,14 +9,13 @@
       <b-col>
         <house-search-bar
           ref="sb"
-          @movepg="movePage"
           @search="searchApt"
           @toggle="toggleView"
         ></house-search-bar>
       </b-col>
     </b-row>
     <b-row>
-      <router-view @saveToggle="currentPage" />
+      <router-view :spp="spp" @search="searchApt" @saveToggle="currentPage" />
     </b-row>
   </b-container>
 </template>
@@ -31,9 +30,8 @@ export default {
   data() {
     return {
       toggle: "",
-      pg: 1,
+      pg: 0,
       spp: 12,
-      navigation: null,
     };
   },
   components: {
@@ -61,20 +59,17 @@ export default {
       this.toggle = pgName;
     },
     searchApt(pg, spp) {
+      this.pg += 1;
       let data = {
         sidoName: this.$refs.sb.$refs.sido.value,
         gugunName: this.$refs.sb.$refs.gugun.value,
         dongName: this.$refs.sb.$refs.dong.value,
         aptName: this.$refs.sb.$refs.aptname.value,
-        pg,
-        spp,
+        spp: spp,
       };
+      if (pg == -1) data.pg = this.pg;
+      else if (pg != null) data.pg = pg;
       this.getHouseList(data);
-    },
-    movePage() {
-      // this.pg = this.pg + 1;
-      this.spp += 12;
-      this.searchApt(this.pg, this.spp);
     },
   },
 };

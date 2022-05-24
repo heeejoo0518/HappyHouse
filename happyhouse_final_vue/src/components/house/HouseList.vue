@@ -3,7 +3,7 @@
     ><b-row>
       <b-card-group
         class="col-md-3"
-        v-for="(house, index) in houses"
+        v-for="(house, index) in houseList"
         :key="index"
       >
         <house-list-item
@@ -11,8 +11,13 @@
           @openModal="openModal"
           style="margin-bottom: 3rem" /></b-card-group
     ></b-row>
-    <b-button @click="movePg">더보기</b-button>
-    <!-- <infinite-loading @infinite="InfiniteHandler" spinner=""></infinite-loading> -->
+    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+      <div
+        slot="no-more"
+        style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px"
+      ></div>
+    </infinite-loading>
+
     <house-detail ref="detailModal" />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
@@ -26,7 +31,7 @@
 import HouseListItem from "@/components/house/HouseListItem.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
 
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 const houseStore = "houseStore";
 
@@ -37,28 +42,38 @@ export default {
     HouseDetail,
   },
   data() {
-    return {};
+    return {
+      houseList: [],
+    };
   },
   props: {
-    pg: Number,
     spp: Number,
   },
   created() {
     this.$emit("saveToggle", this.$route.name);
   },
   computed: {
-    ...mapState(houseStore, ["houses"]), //, "house"]),
+    ...mapState(houseStore, ["houses"]),
   },
   methods: {
-    ...mapActions(houseStore, ["getHouseDetail"]),
     openModal() {
       this.$refs.detailModal.$refs.modal.show();
     },
-    // infiniteHandler($state) {
-    //   console.log($state);
-    // },
-    movePg() {
-      this.$emit("movepg");
+    infiniteHandler($state) {
+      this.$emit("search", -1, this.spp);
+
+      setTimeout(() => {
+        console.log(this.houses);
+        if (this.houses.length) {
+          this.houseList = this.houseList.concat(this.houses);
+          $state.loaded();
+          if (this.houses.length < this.spp) {
+            $state.complete();
+          }
+        } else {
+          $state.complete();
+        }
+      }, 1000);
     },
   },
 };
