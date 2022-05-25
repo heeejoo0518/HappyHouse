@@ -84,7 +84,6 @@
 </template>
 
 <script>
-// import moment from "moment";
 import {
   getArticle,
   deleteArticle,
