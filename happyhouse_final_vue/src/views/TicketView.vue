@@ -1,6 +1,6 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-hotpink">Ticket Service</h3>
+    <h3 class="underline-hotpink">공연 정보</h3>
     <b-row>
       <b-container class="bv-example-row mt-3">
         <b-row>
@@ -47,26 +47,26 @@ export default {
       currentPage: 1,
       rows: 1,
       fields: [
-        { key: "img", label: "", sortable: false, tdClass: "tdClass" },
-        { key: "artist", label: "가수", sortable: true, tdClass: "tdClass" },
+        { key: "img", label: "", sortable: false, tdClass: "ml-4" },
+        { key: "artist", label: "가수", sortable: true, tdClass: "ml-4" },
         {
           key: "title",
           label: "콘서트명",
           sortable: true,
-          tdClass: "tdSubject",
+          tdClass: "ml-4",
         },
-        { key: "location", label: "장소", sortable: true, tdClass: "tdClass" },
+        { key: "location", label: "장소", sortable: true, tdClass: "ml-4" },
         {
           key: "ticketdate",
           label: "날짜",
           sortable: true,
-          tdClass: "tdClass",
+          tdClass: "ml-4",
         },
         {
           key: "link",
           label: "",
           sortable: false,
-          tdClass: "tdClass",
+          tdClass: "ml-4",
         },
       ],
     };

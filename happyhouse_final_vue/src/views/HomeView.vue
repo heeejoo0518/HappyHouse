@@ -13,7 +13,7 @@
         <b-carousel-slide
           class="slide"
           caption="Apart Information"
-          :img-src="require('@/assets/apt/2.jpg')"
+          :img-src="require('@/assets/apt.jpg')"
         >
         </b-carousel-slide>
 

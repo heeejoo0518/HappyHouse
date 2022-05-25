@@ -3,6 +3,7 @@
 <template>
   <div>
     <b-container class="text-center">
+      <h3 class="underline-hotpink">아파트정보</h3>
       <b-row>
         <b-col>
           <house-search-bar

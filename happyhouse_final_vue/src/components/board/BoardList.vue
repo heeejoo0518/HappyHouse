@@ -2,6 +2,7 @@
 
 <template>
   <b-container class="bv-example-row mt-3">
+    <h3 class="underline-hotpink">QnA</h3>
     <b-row class="mb-1">
       <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()" size="sm"
