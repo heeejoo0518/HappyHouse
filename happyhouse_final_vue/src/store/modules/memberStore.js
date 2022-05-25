@@ -1,3 +1,5 @@
+/** @format */
+
 import jwt_decode from "jwt-decode";
 import { login, findById } from "@/api/member.js";
 // import { findById } from "../../api/member";
@@ -7,9 +9,7 @@ const memberStore = {
   state: {
     isLogin: false,
     isLoginError: false,
-    userInfo: {
-      userid: "",
-    },
+    userInfo: null,
   },
   getters: {
     checkUserInfo: function (state) {

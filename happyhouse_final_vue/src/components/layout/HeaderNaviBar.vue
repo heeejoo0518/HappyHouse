@@ -93,7 +93,7 @@ export default {
     ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
     onClickLogout() {
       this.SET_IS_LOGIN(false);
-      this.SET_USER_INFO({ userid: "" });
+      this.SET_USER_INFO(null);
       sessionStorage.removeItem("access-token");
       if (this.$route.path != "/") this.$router.push({ name: "home" });
     },
