@@ -22,13 +22,14 @@
             ></b-nav-item
           >
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'board' }" class="link">
-              QnA</router-link
-            ></b-nav-item
-          >
-          <b-nav-item href="#"
             ><router-link :to="{ name: 'ticket' }" class="link">
               공연정보</router-link
+            ></b-nav-item
+          >
+
+          <b-nav-item href="#"
+            ><router-link :to="{ name: 'board' }" class="link">
+              QnA</router-link
             ></b-nav-item
           >
         </b-navbar-nav>
