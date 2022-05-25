@@ -2,7 +2,7 @@
 
 <template>
   <b-row class="mt-4 mb-4 text-center">
-    <b-col cols="9">
+    <b-col cols="8">
       <b-row v-show="!likeapt">
         <b-col class="sm-3">
           <b-form-select
@@ -39,7 +39,7 @@
       </b-row>
     </b-col>
 
-    <b-col cols="2" class="sm-3" align="left">
+    <b-col cols="2" class="sm-4" align="left">
       <b-button
         v-if="userInfo != null"
         :pressed.sync="likeapt"
@@ -48,8 +48,10 @@
         >즐겨찾기</b-button
       >
     </b-col>
-    <b-col cols="1" class="sm-3" align="center">
-      <toggle-button @change="toggleView"></toggle-button>
+    <b-col cols="2" class="sm-4" align="center">
+      <b-button @click="toggleView" variant="outline-success"
+        >{{ text }}
+      </b-button>
     </b-col>
   </b-row>
 </template>
@@ -72,6 +74,9 @@ export default {
       userid: null,
     };
   },
+  props: {
+    text: String,
+  },
   computed: {
     ...mapState(houseStore, [
       "sidos",
@@ -91,6 +96,7 @@ export default {
   },
   mounted() {
     this.sidoName = "서울특별시";
+    this.gugunList();
     this.gugunName = "강북구";
     this.duplicateSearch();
   },

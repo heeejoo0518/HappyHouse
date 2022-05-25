@@ -5,15 +5,18 @@
       <b-row>
         <img src="@/assets/main.jpg" />
       </b-row>
-
       <b-row>
-        <img src="@/assets/apartment.jpg" />
+        <router-link :to="{ name: 'house' }"
+          ><img src="@/assets/apartment.jpg"
+        /></router-link>
       </b-row>
       <b-row>
-        <img src="@/assets/trot.jpg" />
+        <router-link :to="{ name: 'ticket' }">
+          <img src="@/assets/trot.jpg" />
+        </router-link>
       </b-row>
     </b-col>
-    <b-col cols="1"></b-col>
+    <b-col cols="2"></b-col>
   </b-row>
 </template>
 

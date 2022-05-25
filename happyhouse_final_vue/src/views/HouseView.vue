@@ -8,6 +8,7 @@
         <b-col>
           <house-search-bar
             ref="sb"
+            :text="text"
             @search="searchApt"
             @toggle="toggleView"
           ></house-search-bar>
@@ -30,7 +31,18 @@ export default {
   data() {
     return {
       toggle: "",
+      text: "",
     };
+  },
+  mounted() {
+    switch (this.toggle) {
+      case "houseList":
+        this.text = "지도";
+        break;
+      case "houseMap":
+        this.text = "리스트";
+        break;
+    }
   },
   components: {
     HouseSearchBar,
@@ -44,9 +56,11 @@ export default {
       switch (this.toggle) {
         case "houseList":
           this.toggle = "houseMap";
+          this.text = "리스트";
           break;
         case "houseMap":
           this.toggle = "houseList";
+          this.text = "지도";
           break;
       }
       this.$router.push({ name: this.toggle });
