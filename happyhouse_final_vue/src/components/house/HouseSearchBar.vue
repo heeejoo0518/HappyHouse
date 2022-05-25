@@ -2,7 +2,7 @@
 
 <template>
   <b-row class="mt-4 mb-4 text-center">
-    <b-col cols="10">
+    <b-col cols="9">
       <b-row v-show="!likeapt">
         <b-col class="sm-3">
           <b-form-select
@@ -39,17 +39,16 @@
       </b-row>
     </b-col>
 
-    <b-col class="sm-3" align="left">
+    <b-col cols="2" class="sm-3" align="left">
       <b-button
         v-if="userInfo != null"
         :pressed.sync="likeapt"
         variant="outline-warning"
         @click="likeAptsList"
-        >관심아파트</b-button
+        >즐겨찾기</b-button
       >
     </b-col>
-    <b-col class="sm-3" align="left">
-      <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
+    <b-col cols="1" class="sm-3" align="center">
       <toggle-button @change="toggleView"></toggle-button>
     </b-col>
   </b-row>
