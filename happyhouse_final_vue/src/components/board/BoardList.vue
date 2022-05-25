@@ -4,7 +4,7 @@
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()"
+        <b-button variant="outline-primary" @click="moveWrite()" size="sm"
           >글쓰기</b-button
         >
       </b-col>
@@ -12,7 +12,6 @@
     <b-row>
       <b-col>
         <b-table
-          striped
           hover
           :items="articles"
           :fields="fields"
@@ -51,7 +50,6 @@ export default {
         { key: "subject", label: "제목", tdClass: "tdSubject" },
         { key: "userid", label: "작성자", tdClass: "tdClass" },
         { key: "regtime", label: "작성일", tdClass: "tdClass" },
-        { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
     };
   },

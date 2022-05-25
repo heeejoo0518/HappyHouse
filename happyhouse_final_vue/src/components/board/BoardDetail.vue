@@ -2,14 +2,11 @@
 
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
-      </b-col>
-    </b-row>
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="listArticle">목록</b-button>
+        <b-button variant="outline-primary" @click="listArticle" size="sm"
+          >목록</b-button
+        >
       </b-col>
       <b-col class="text-right">
         <b-button
@@ -27,16 +24,17 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${article.articleno}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
+          :header-html="`<h3 class='mb-4 mt-1'>${article.subject}</h3><div class='text-right'><strong>${article.userid}</strong>  ${article.regtime}</div>`"
           class="mb-2"
-          border-variant="dark"
+          border-variant="white"
           no-body
         >
-          <b-card-body class="text-left">
+          <b-card-body class="text-left" style="min-height: 400px">
             <div v-html="message"></div>
           </b-card-body>
         </b-card>
+        <hr class="my-4" />
+
         <div class="">
           <b-card>
             <b-row>
@@ -67,7 +65,7 @@
               <span>
                 <button
                   @click="deleteComment(comment.commentno)"
-                  class="btn btn-outline-primary btn-sm"
+                  class="btn btn-outline-danger btn-sm"
                 >
                   삭제
                 </button>
@@ -190,4 +188,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.card-header {
+  background-color: #fcf9f2;
+}
+</style>
