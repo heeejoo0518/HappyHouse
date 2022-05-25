@@ -88,6 +88,10 @@ export default {
     this.CLEAR_HOUSE();
     this.CLEAR_HOSPITAL_LIST();
     this.getSido();
+    this.sidoName = "서울특별시";
+    this.gugunList();
+    this.gugunName = "강북구";
+    this.duplicateSearch();
   },
   watch: {
     aptName: function () {
@@ -156,7 +160,6 @@ export default {
         //false --> 리스트
         this.searchApt();
       } else {
-        //관심지역
         this.CLEAR_HOUSE_LIST();
         // this.searchApt();
         this.hospitalList();

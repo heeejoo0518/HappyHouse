@@ -3,7 +3,6 @@
 import { apiInstance, hospitalInstance } from "./index.js";
 
 const api = apiInstance();
-api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
 
 const hospital = hospitalInstance();
 
@@ -28,6 +27,7 @@ function houseDetail(params, success, fail) {
 }
 
 function addLikeApt(data, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   api
     .post(`/like/apt/${data.userid}/${data.aptCode}`)
     .then(success)
@@ -35,6 +35,7 @@ function addLikeApt(data, success, fail) {
 }
 
 function deleteLikeApt(data, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   api
     .delete(`/like/apt/${data.userid}/${data.aptCode}`)
     .then(success)
@@ -42,6 +43,7 @@ function deleteLikeApt(data, success, fail) {
 }
 
 function getLikeApts(userid, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   api.get(`/like/apt/list/${userid}`).then(success).catch(fail);
 }
 
