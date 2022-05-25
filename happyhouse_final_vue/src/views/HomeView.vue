@@ -1,43 +1,46 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> SSAFY</h3>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="10">
-        <b-jumbotron
-          bg-variant="muted"
-          text-variant="dark"
-          border-variant="dark"
+  <b-row>
+    <b-col></b-col>
+    <b-col cols="10">
+      <b-carousel
+        id="carousel-fade"
+        style="text-shadow: 0px 0px 2px #000"
+        fade
+        indicators
+        img-width="1024"
+        img-height="480"
+      >
+        <b-carousel-slide
+          caption="Apart Information"
+          img-src="https://picsum.photos/1024/480/?image=49"
         >
-          <template #header>SSAFY Home</template>
+        </b-carousel-slide>
 
-          <template #lead>
-            슬기로운 싸피 생활 (:7기편) <br />
-            행운을 부르는 러~~~~키 Seven!!!!!
-          </template>
+        <b-carousel-slide
+          caption="Board"
+          img-src="https://picsum.photos/1024/480/?image=20"
+        >
+        </b-carousel-slide>
 
-          <hr class="my-4" />
-
-          <p>Vue + Bootstrap활용.</p>
-          <p>Bootstrap-vue는 버전 <b>4.6.1</b>을 권장합니다.</p>
-          <p><b>BoardList.vue</b>를 바꿔가면서 테스트하세요.</p>
-          <p>Bootstrap의 <b>table</b> 사용법을 익히게됩니다.</p>
-        </b-jumbotron>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </b-container>
+        <b-carousel-slide
+          caption="Ticket Reservation"
+          img-src="https://picsum.photos/1024/480/?image=64"
+        >
+        </b-carousel-slide>
+      </b-carousel>
+    </b-col>
+    <b-col></b-col>
+  </b-row>
 </template>
-
 <script>
 export default {
   name: "HomeView",
-  props: {
-    msg: String,
+  data() {
+    return {};
   },
+  methods: {},
 };
 </script>
-
 <style scoped>
 .underline-steelblue {
   display: inline-block;
