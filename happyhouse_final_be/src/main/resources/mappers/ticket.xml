@@ -15,6 +15,11 @@
 	select count(ticketno) from tickets
 	where STR_TO_DATE(substr(ticketdate,-10,10), '%Y.%m.%d') >= date_format(now(),'%Y.%m.%d')
 	</select>
+	
+	<insert id="insertTicket" parameterType="map">
+	insert into tickets(artist, title, location, ticketdate, img, link)
+	values (#{artist},#{title},#{location},#{ticketdate},#{img},#{link})
+	</insert>
 
 </mapper>
 

@@ -27,13 +27,16 @@
 	
 	<!-- 아파트 목록 조회 -->
 	<select id="getApts" parameterType="map" resultType="HouseInfoDto">
-		select i.* 
+		select max(replace(dealAmount,",","")+0) highest, min(replace(dealAmount,",","")+0) lowest, i.*
 		from houseinfo i
 		inner join dongcode d
 		on d.dongCode = i.dongCode
+		inner join housedeal hd
+		on i.aptCode = hd.aptCode
 		where d.sidoName = #{sidoName} and d.gugunName = #{gugunName}
 		<if test="dongName != null and dongName != ''">and d.dongName=#{dongName}</if>
 		<if test="aptName != null and aptName != ''">and i.apartmentName like concat('%',#{aptName},'%')</if>
+		group by aptCode
 	</select>
 	
 	<select id="getTotalCount" parameterType="map" resultType="int">

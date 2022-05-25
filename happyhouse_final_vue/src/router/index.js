@@ -116,12 +116,6 @@ const routes = [
       },
     ],
   },
-  {
-    path: "/todo",
-    name: "todo",
-    beforeEnter: onlyAuthUser,
-    component: () => import("@/views/TodoView.vue"),
-  },
 ];
 
 const router = new VueRouter({

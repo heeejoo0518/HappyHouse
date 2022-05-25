@@ -1,6 +1,6 @@
 <!-- @format -->
 <template>
-  <div>
+  <div class="mapview">
     <div id="map"></div>
     <house-detail ref="detailModal" />
   </div>
@@ -54,7 +54,7 @@ export default {
           title: house.apartmentName,
           image: new kakao.maps.MarkerImage(
             ImgApt,
-            new kakao.maps.Size(24, 35),
+            new kakao.maps.Size(35, 35),
           ),
           clickable: true,
         });
@@ -87,9 +87,11 @@ export default {
         );
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
-          console.log(t.userInfo.userid);
+          let id;
+          if (t.userInfo == null) id = null;
+          else id = t.userInfo.userid;
           t.getHouseDetail({
-            userid: t.userInfo.userid,
+            userid: id,
             aptCode: house.aptCode,
           });
           t.$refs.detailModal.$refs.modal.show();
@@ -150,7 +152,11 @@ export default {
 
 <style scoped>
 #map {
-  width: 1000px;
-  height: 600px;
+  width: 100vw;
+  height: 100vh;
+  /* margin: 3rem; */
+}
+.mapview {
+  overflow: hidden;
 }
 </style>

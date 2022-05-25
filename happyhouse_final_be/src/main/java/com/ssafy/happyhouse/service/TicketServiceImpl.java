@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class TicketServiceImpl implements TicketService{
 	@Override
 	public int getTotalCount() {
 		return ticketMapper.getTotalCount();
+	}
+
+	@Override
+	public boolean insertTicket(Map<String, String> ticket) {
+		return ticketMapper.insertTicket(ticket) == 1;
 	}
 
 }

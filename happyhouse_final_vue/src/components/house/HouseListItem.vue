@@ -35,6 +35,7 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+    ...mapState(houseStore, ["hospitals"]),
   },
   props: {
     house: Object,

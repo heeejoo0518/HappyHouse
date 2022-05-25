@@ -10,7 +10,7 @@
       <div id="newMap" style="width: 400px; height: 300px"></div>
     </b-container>
     <template #modal-footer>
-      <div class="">
+      <div>
         <p class="float-left"></p>
 
         <b-button
@@ -18,7 +18,7 @@
           size="sm"
           class="float-right"
           @click="addApt"
-          v-if="!check()"
+          v-if="!check() && userInfo != null"
         >
           관심지역 추가
         </b-button>
@@ -27,7 +27,7 @@
           size="sm"
           class="float-right"
           @click="deleteApt"
-          v-if="check()"
+          v-if="check() && userInfo != null"
         >
           관심지역 취소
         </b-button>

@@ -1,20 +1,22 @@
 <!-- @format -->
 
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
-    <b-row>
-      <b-col>
-        <house-search-bar
-          ref="sb"
-          @search="searchApt"
-          @toggle="toggleView"
-        ></house-search-bar>
-      </b-col>
-    </b-row>
+  <div>
+    <b-container class="text-center">
+      <b-row>
+        <b-col>
+          <house-search-bar
+            ref="sb"
+            @search="searchApt"
+            @toggle="toggleView"
+          ></house-search-bar>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-row>
       <router-view @search="searchApt" @saveToggle="currentPage" />
     </b-row>
-  </b-container>
+  </div>
 </template>
 <script>
 const memberStore = "memberStore";

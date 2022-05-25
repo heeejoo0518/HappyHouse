@@ -11,20 +11,23 @@
         img-height="480"
       >
         <b-carousel-slide
+          class="slide"
           caption="Apart Information"
-          img-src="https://picsum.photos/1024/480/?image=49"
+          :img-src="require('@/assets/apt/2.jpg')"
         >
         </b-carousel-slide>
 
         <b-carousel-slide
+          class="slide"
           caption="Board"
           img-src="https://picsum.photos/1024/480/?image=20"
         >
         </b-carousel-slide>
 
         <b-carousel-slide
+          class="slide"
           caption="Ticket Reservation"
-          img-src="https://picsum.photos/1024/480/?image=64"
+          img-src="https://i.ibb.co/yQ10Tft/img-20201110180210-cf377892.webp"
         >
         </b-carousel-slide>
       </b-carousel>
@@ -49,5 +52,8 @@ export default {
     rgba(255, 255, 255, 0) 70%,
     rgba(72, 190, 233, 0.3) 30%
   );
+}
+.slide {
+  height: 80vh;
 }
 </style>
