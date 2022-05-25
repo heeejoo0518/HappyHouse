@@ -14,9 +14,7 @@
   >
     <b-card-body>
       <b-card-title>{{ house.apartmentName }}</b-card-title>
-      <b-card-sub-title class="mb-2"
-        >{{ house.dong }} {{ house.highest }}</b-card-sub-title
-      >
+      <b-card-sub-title class="mb-2">{{ house.dong }}</b-card-sub-title>
     </b-card-body>
   </b-card>
 </template>

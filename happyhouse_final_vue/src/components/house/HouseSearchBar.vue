@@ -48,7 +48,7 @@
         :pressed.sync="likeapt"
         variant="outline-warning"
         @click="likeAptsList"
-        >관심지역</b-button
+        >관심아파트</b-button
       >
     </b-col>
   </b-row>

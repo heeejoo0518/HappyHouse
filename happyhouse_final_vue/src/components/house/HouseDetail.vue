@@ -18,7 +18,7 @@
           size="sm"
           class="float-right"
           @click="addApt"
-          v-if="!check() && userInfo != null"
+          v-if="!check && userInfo != null"
         >
           관심지역 추가
         </b-button>
@@ -27,7 +27,7 @@
           size="sm"
           class="float-right"
           @click="deleteApt"
-          v-if="check() && userInfo != null"
+          v-if="check && userInfo != null"
         >
           관심지역 취소
         </b-button>
@@ -52,12 +52,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(houseStore, ["house", "hospitals"]),
+    ...mapState(houseStore, ["house", "houses", "hospitals"]),
     ...mapState(memberStore, ["userInfo"]),
-  },
-  methods: {
-    ...mapMutations(houseStore, ["CLEAR_HOUSE"]),
-    ...mapActions(houseStore, ["getHouseDetail", "getHospitalList"]),
     check() {
       if (this.house.check == "Y") {
         return true;
@@ -65,13 +61,21 @@ export default {
         return false;
       }
     },
+  },
+  methods: {
+    ...mapMutations(houseStore, ["CLEAR_HOUSE"]),
+    ...mapActions(houseStore, ["getHouseDetail", "getHospitalList"]),
+
     addApt() {
       addLikeApt(
         { userid: this.userInfo.userid, aptCode: this.house.aptCode },
         ({ data }) => {
+          console.log(data);
           let msg = "등록 처리시 문제가 발생했습니다.";
           if (data.message === "success") {
             msg = "등록이 완료되었습니다.";
+            this.house.check = "Y";
+            this.houses.push(this.house);
           }
           alert(msg);
         },
@@ -88,6 +92,12 @@ export default {
           let msg = "삭제 처리시 문제가 발생했습니다.";
           if (data.message === "success") {
             msg = "삭제가 완료되었습니다.";
+            this.house.check = "N";
+            this.houses.forEach((hs, index) => {
+              if (hs.aptCode == this.house.aptCode) {
+                this.houses.splice(index, 1);
+              }
+            });
           }
           alert(msg);
         },
@@ -102,7 +112,7 @@ export default {
       let marker = null;
       //병원 위치 넣기
       var ImgHpt = require("@/assets/hospital.png");
-      this.hospitals.response.body.items.item.forEach((hospital) => {
+      this.hospitals.forEach((hospital) => {
         marker = new kakao.maps.Marker({
           map: this.map,
           position: new kakao.maps.LatLng(
@@ -112,7 +122,7 @@ export default {
           title: hospital.dutyName,
           image: new kakao.maps.MarkerImage(
             ImgHpt,
-            new kakao.maps.Size(24, 35),
+            new kakao.maps.Size(35, 35),
           ),
         });
         this.markers.push(marker);
@@ -153,7 +163,7 @@ export default {
           parseFloat(this.house.lng),
         ),
         title: this.house.apartmentName,
-        image: new kakao.maps.MarkerImage(ImgApt, new kakao.maps.Size(24, 35)),
+        image: new kakao.maps.MarkerImage(ImgApt, new kakao.maps.Size(35, 35)),
       });
       marker.setMap(this.map);
       this.markers.push(marker);
@@ -209,7 +219,7 @@ export default {
       //현재 아파트 위치에서 가장 가까운 병원 저장(거리계산 알고리즘)
       var min = Number.MAX_VALUE;
       var i = -1;
-      this.hospitals.response.body.items.item.forEach((hospital, index) => {
+      this.hospitals.forEach((hospital, index) => {
         var x = parseFloat(hospital.wgs84Lat) - parseFloat(this.house.lat);
         var y = parseFloat(hospital.wgs84Lon) - parseFloat(this.house.lng);
         var distance = Math.sqrt(Math.abs(x * x) + Math.abs(y * y));
@@ -221,7 +231,7 @@ export default {
       if (i == -1) {
         return `가까운 병원이 없습니다.`;
       } else {
-        return `${this.hospitals.response.body.items.item[i].dutyName}`;
+        return `${this.hospitals[i].dutyName}`;
       }
     },
   },
