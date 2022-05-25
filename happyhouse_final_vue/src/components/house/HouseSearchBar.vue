@@ -88,8 +88,9 @@ export default {
     this.CLEAR_HOUSE();
     this.CLEAR_HOSPITAL_LIST();
     this.getSido();
+  },
+  mounted() {
     this.sidoName = "서울특별시";
-    this.gugunList();
     this.gugunName = "강북구";
     this.duplicateSearch();
   },
