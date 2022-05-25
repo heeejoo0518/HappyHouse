@@ -39,7 +39,7 @@
         <hr class="my-4" />
 
         <div class="">
-          <b-card v-if="userInfo != null && comment.userid == userInfo.userid">
+          <b-card v-if="userInfo != null">
             <b-row>
               <b-col cols="10">
                 <b-form-textarea
