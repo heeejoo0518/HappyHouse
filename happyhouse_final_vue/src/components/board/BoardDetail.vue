@@ -8,7 +8,10 @@
           >목록</b-button
         >
       </b-col>
-      <b-col v-if="article.userid == userInfo.userid" class="text-right">
+      <b-col
+        v-if="userInfo != null && article.userid == userInfo.userid"
+        class="text-right"
+      >
         <b-button
           variant="outline-info"
           size="sm"
@@ -36,7 +39,7 @@
         <hr class="my-4" />
 
         <div class="">
-          <b-card>
+          <b-card v-if="userInfo != null && comment.userid == userInfo.userid">
             <b-row>
               <b-col cols="10">
                 <b-form-textarea
@@ -64,7 +67,7 @@
               {{ comment.regtime }}
               <span>
                 <button
-                  v-if="comment.userid == userInfo.userid"
+                  v-if="userInfo != null && comment.userid == userInfo.userid"
                   @click="deleteComment(comment.commentno)"
                   class="btn btn-outline-danger btn-sm"
                 >
@@ -108,8 +111,6 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
   },
   created() {
-    this.listComments();
-
     getArticle(
       this.$route.params.articleno,
       (response) => {
@@ -119,6 +120,7 @@ export default {
         console.log("삭제시 에러발생!!", error);
       },
     );
+    this.listComments();
   },
   methods: {
     listArticle() {
