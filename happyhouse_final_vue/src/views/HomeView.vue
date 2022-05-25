@@ -1,40 +1,22 @@
 <template>
   <b-row>
-    <b-col></b-col>
-    <b-col cols="10">
-      <b-carousel
-        id="carousel-fade"
-        style="text-shadow: 0px 0px 2px #000"
-        fade
-        indicators
-        img-width="1024"
-        img-height="480"
-      >
-        <b-carousel-slide
-          class="slide"
-          caption="Apart Information"
-          :img-src="require('@/assets/apt.jpg')"
-        >
-        </b-carousel-slide>
+    <b-col cols="2"></b-col>
+    <b-col cols="">
+      <b-row>
+        <img src="@/assets/main.jpg" />
+      </b-row>
 
-        <b-carousel-slide
-          class="slide"
-          caption="Board"
-          img-src="https://picsum.photos/1024/480/?image=20"
-        >
-        </b-carousel-slide>
-
-        <b-carousel-slide
-          class="slide"
-          caption="Ticket Reservation"
-          img-src="https://i.ibb.co/yQ10Tft/img-20201110180210-cf377892.webp"
-        >
-        </b-carousel-slide>
-      </b-carousel>
+      <b-row>
+        <img src="@/assets/apartment.jpg" />
+      </b-row>
+      <b-row>
+        <img src="@/assets/trot.jpg" />
+      </b-row>
     </b-col>
-    <b-col></b-col>
+    <b-col cols="1"></b-col>
   </b-row>
 </template>
+
 <script>
 export default {
   name: "HomeView",
