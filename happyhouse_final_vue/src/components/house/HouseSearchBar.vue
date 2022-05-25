@@ -36,12 +36,9 @@
             placeholder="아파트 이름 입력"
           ></b-form-input>
         </b-col>
-        <b-col class="sm-3" align="left">
-          <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
-          <toggle-button @change="toggleView"></toggle-button>
-        </b-col>
       </b-row>
     </b-col>
+
     <b-col class="sm-3" align="left">
       <b-button
         v-if="userInfo != null"
@@ -50,6 +47,10 @@
         @click="likeAptsList"
         >관심아파트</b-button
       >
+    </b-col>
+    <b-col class="sm-3" align="left">
+      <!-- <b-button variant="outline-primary" @click="searchApt">검색</b-button> -->
+      <toggle-button @change="toggleView"></toggle-button>
     </b-col>
   </b-row>
 </template>
