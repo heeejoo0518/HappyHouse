@@ -8,7 +8,7 @@
           >목록</b-button
         >
       </b-col>
-      <b-col class="text-right">
+      <b-col v-if="article.userid == userInfo.userid" class="text-right">
         <b-button
           variant="outline-info"
           size="sm"
@@ -64,6 +64,7 @@
               {{ comment.regtime }}
               <span>
                 <button
+                  v-if="comment.userid == userInfo.userid"
                   @click="deleteComment(comment.commentno)"
                   class="btn btn-outline-danger btn-sm"
                 >
@@ -88,14 +89,14 @@ import {
   createComment,
   deleteComment,
 } from "@/api/board";
-
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 export default {
   name: "BoardDetail",
   data() {
     return {
       article: {},
       comment: "",
-      userid: "ssafy",
     };
   },
   computed: {
@@ -104,6 +105,7 @@ export default {
         return this.article.content.split("\n").join("<br>");
       return "";
     },
+    ...mapState(memberStore, ["userInfo"]),
   },
   created() {
     this.listComments();
@@ -151,7 +153,7 @@ export default {
       createComment(
         {
           articleno: this.article.articleno,
-          userid: this.userid,
+          userid: this.userInfo.userid,
           content: this.comment,
         },
         (response) => {
