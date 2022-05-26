@@ -83,3 +83,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+산출물/sql/20220519_aptcrawl.sql
+happyhouse_final_be/src/main/resources/res/20220519_aptcrawl.sql

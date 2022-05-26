@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkhappyhouse"]=self["webpackChunkhappyhouse"]||[]).push([[814],{6814:function(e,t,n){n.r(t),n.d(t,{default:function(){return o}});var r=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("b-container",{staticClass:"bv-example-row mt-3 text-center"},[n("router-view")],1)},u=[],a={name:"BoardView"},s=a,c=n(1001),l=(0,c.Z)(s,r,u,!1,null,"3f5001df",null),o=l.exports}}]);
-//# sourceMappingURL=814-legacy.bf15dfbf.js.map
