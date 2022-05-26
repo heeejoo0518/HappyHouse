@@ -138,7 +138,12 @@ export default {
       );
 
       await register(
-        this.user,
+        {
+          userid: this.user.userid,
+          userpwd: this.newpwd,
+          username: this.user.username,
+          email: this.user.email,
+        },
         ({ data }) => {
           if (data.message === "success") {
             alert("회원가입이 완료되었습니다.");
