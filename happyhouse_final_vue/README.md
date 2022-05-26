@@ -1,4 +1,4 @@
-# vue-board-bootstrap
+# happyhouse
 
 ## Project setup
 ```
