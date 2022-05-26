@@ -145,7 +145,12 @@ export default {
     },
     modifyUser() {
       modify(
-        this.user,
+        {
+          userid: this.user.userid,
+          userpwd: this.newpwd,
+          username: this.user.username,
+          email: this.user.email,
+        },
         ({ data }) => {
           if (data.message === "success") {
             this.SET_USER_INFO(data.userInfo);
